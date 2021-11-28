@@ -74,6 +74,20 @@ namespace kingkong
             socket_.shutdown(boost::asio::socket_base::shutdown_type::shutdown_receive, ec);
         }
 
+        template <typename F>
+        void start(F f)
+        {
+            f(boost::system::error_code());
+        }
+
+        tcp::socket socket_;
     };
+
+#ifndef KINGKONG_ENABLE_SSL
+    struct SSLAdaptor
+    {
+        
+    }
+#endif 
     
 } 
