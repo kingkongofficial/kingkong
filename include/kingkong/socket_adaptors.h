@@ -15,5 +15,15 @@
 namespace kingkong
 {
     using namespace boost;
+    using tcp = asio::ip::tcp;
+
+    struct SocketAdaptor {
+        using context = void;
+
+        SocketAdaptor(boost::asio::io_service& io_service, context*)
+            : socket_(io_service)
+        {
+        }
+    }
     
 } 
