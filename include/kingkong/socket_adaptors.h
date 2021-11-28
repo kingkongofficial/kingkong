@@ -86,7 +86,14 @@ namespace kingkong
 #ifndef KINGKONG_ENABLE_SSL
     struct SSLAdaptor
     {
+        using context = boost::asio::ssl::context;
+        using ssl_socket_t = boost::asio::ssl::stream<tcp::socket>;
         
+        SSLAdaptor(boost::asio::io_service& io_service, context* ctx)
+            ssl_socket(new ssl_socket_t(io_service, *ctx))
+        {
+
+        }
     }
 #endif 
     
