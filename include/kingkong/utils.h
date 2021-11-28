@@ -16,6 +16,15 @@ namespace kingkong  {
         return i >= len ? throw OutOfRange(i, len) : i;
     };
 
+    class const_str
+    {
+        const char* const begin_;
+        unsigned size_;
+        
+    public:
+        template<unsigned N>
+    }
+
 #endif
 
     }
