@@ -1,5 +1,6 @@
 #pragma once
 
+/* includes */
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/functional/hash.hpp>
 #include <unordered_map>
@@ -11,10 +12,6 @@
  */
 namespace kingkong {
 
-    /**
-     * @brief hash
-     * 
-     */
     struct ci_hash
     {
         size_t operator()(const std::string& key) const
