@@ -6,7 +6,7 @@
  * @brief enable logging
  * 
  */
-#define KINGKONG_ENABLE_LOG
+#define KINGKONG_ENABLE_LOGGING
 
 /**
  * @brief log levels
@@ -26,3 +26,10 @@
 #ifndef KINGKONG_STATIC_ENDPOINT
 #define KONGKONG_STATIC_ENDPOINT "/static/<path>/"
 #endif 
+
+#if defined(_MSVC_LANG) && _MSVC_LANG >= 201402L
+#define KINGKONG_CAN_USE_CPP14
+#endif
+#if __cplusplus >= 201402L
+#define KINGKONG_CAN_USE_CPP14
+#endif
