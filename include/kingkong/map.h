@@ -21,4 +21,11 @@ namespace kingkong {
 
         return seed;
     };
+
+    struct ci_key_eq
+    {
+
+    };
+
+    using ci_map = std::unordered_multimap<std::string, std::string, ci_hash, ci_key_eq>;
 }
