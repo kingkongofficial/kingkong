@@ -24,6 +24,37 @@ namespace kingkong
             : socket_(io_service)
         {
         }
+
+        boost::asio::io_service& get_io_service()
+        {
+            return GET_IO_SERVICE(socket_);
+        }
+
+        tcp::socket& raw_scket()
+        {
+            return socket_;
+        }
+
+        tcp::socket& socket()
+        {
+            return socket_;
+        }
+
+        tcp::endpoint remote_endpoint()
+        {
+            return socket_.remote_endpoint();
+        }
+        
+        bool is_open()
+        {
+            return socket_.is_open();
+        }
+
+        void close()
+        {
+            boost::system::error_code ec;
+            socket_.close(ec);
+        }
     }
     
 } 
