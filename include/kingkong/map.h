@@ -9,7 +9,7 @@
  * @returns seed
  * 
  */
-namespace crow {
+namespace kingkong {
 
     /**
      * @brief hash
