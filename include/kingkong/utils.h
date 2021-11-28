@@ -8,7 +8,6 @@
 #include <functional>
 #include <string>
 #include <unordered_map>
-
 #include "kingkong/settings.h"
 
 namespace kingkong {
