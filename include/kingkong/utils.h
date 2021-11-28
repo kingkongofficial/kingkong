@@ -38,7 +38,15 @@ namespace kingkong  {
         {
             return begin_;
         }
-    }
+
+        constexpr const char* begin() const { return begin_; }
+        constexpr const char* end() const { return begin_ + size_; }
+
+        constexpr unsigned size() const
+        {
+            return size_; 
+        }
+    };
 
 #endif
 
