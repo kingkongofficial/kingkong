@@ -55,6 +55,25 @@ namespace kingkong
             boost::system::error_code ec;
             socket_.close(ec);
         }
-    }
+
+        void shutdown_readwrite()
+        {
+            boost::system::error_code ec;
+            socket_.shutdown(boost::asio::socket_base::shutdown_type::shutdown_both, ec);
+        }
+
+        void shutdown_write()
+        {
+            boost::system::error_code ec;
+            socket_.shutdown(boost::asio::socket_base::shutdown_type::shutdown_send, ec);
+        }
+
+        void shutdown_read()
+        {
+            boost::system::error_code ec;
+            socket_.shutdown(boost::asio::socket_base::shutdown_type::shutdown_receive, ec);
+        }
+
+    };
     
 } 
