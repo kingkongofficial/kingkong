@@ -1,6 +1,6 @@
 #pragma once
 
-
+/* includes */
 #include "kingkong/settings.h"
 #include <cstdio>
 #include <cstdlib>
@@ -9,8 +9,7 @@
 #include <sstream>
 #include <string>
 
-namespace kingkong
-{
+namespace kingkong {
     enum class LogLevel
     {
 #ifndef ERROR
@@ -118,10 +117,9 @@ namespace kingkong
         static LogLevel get_current_log_level() { return get_log_level_ref(); }
 
     private:
-
         static LogLevel& get_log_level_ref()
         {
-            static LogLevel current_level = static_cast<LogLevel>(CROW_LOG_LEVEL);
+            static LogLevel current_level = static_cast<LogLevel>(KINGKONG_LOG_LEVEL);
             return current_level;
         }
         static ILogHandler*& get_handler_ref()
@@ -134,4 +132,21 @@ namespace kingkong
         std::ostringstream stringstream_;
         LogLevel level_;
     };
-} 
+}
+
+/* defining the fuctions we created */
+#define KINGKONG_LOG_CRITICAL                                                  \
+    if (kingkong::logger::get_current_log_level() <= kingkong::LogLevel::Critical) \
+    kingkong::logger(kingkong::LogLevel::Critical)
+#define KINGKONG_LOG_ERROR                                                  \
+    if (kingkong::logger::get_current_log_level() <= kingkong::LogLevel::Error) \
+    kingkong::logger(kingkong::LogLevel::Error)
+#define KINGKONG_LOG_WARNING                                                  \
+    if (kingkong::logger::get_current_log_level() <= kingkong::LogLevel::Warning) \
+    kingkong::logger(kingkong::LogLevel::Warning)
+#define KINGKONG_LOG_INFO                                                  \
+    if (kingkong::logger::get_current_log_level() <= kingkong::LogLevel::Info) \
+    kingkong::logger(kingkong::LogLevel::Info)
+#define KINGKONG_LOG_DEBUG                                                  \
+    if (kingkong::logger::get_current_log_level() <= kingkong::LogLevel::Debug) \
+    kingkong::logger(kingkong::LogLevel::Debug)
