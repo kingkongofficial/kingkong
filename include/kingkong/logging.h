@@ -30,6 +30,32 @@ namespace kingkong {
     class ILogHandler
     {
     public:
-        virtual void log(std::string);
+        virtual void log(std::string message, LogLevel level) = 0;
+    };
+
+    class CerrLogHandler : public ILogHandler
+    {
+    public:
+        void log(std::string message, LogLevel level) override
+        {
+            std::string prefix
+            
+            switch (level)
+            {
+
+            }
+        }
+
+    private:
+        static std::string timestamp()
+        {
+            char data[32];
+            time_t t = time(0);
+            tm my_tm;
+
+            size_t sz = strftime(date, sizeof(date), "%Y-%m-%d %H:%M:%S", &my_tm);
+            return std::string(date, date + sz);
+
+        }
     };
 }
