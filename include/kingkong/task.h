@@ -29,8 +29,12 @@ namespace kingkong {
             }
 
         private:
-            std::uint8_t default_timeout_{5};            
-
+            std::uint8_t default_timeout_{5};
+            boost::asio::io_service& io_service_;
+            boost::asio::deadline_timer deadline_timer_;
+            std::map<identifier_type, std::pair<time_type, task_type>> tasks_;
+            
+            identifier_type highest_id_{0};
 
     }
 
