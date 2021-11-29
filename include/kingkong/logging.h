@@ -11,14 +11,25 @@
 namespace kingkong {
     enum class LogLevel
     {
-#ifndef ERROR
-#ifndef DEBUG
-    DEBUG = 0,
-    INFO,
-    WARNING,
-    ERROR,
-    CRITICAL,
-#endif
-#endif
-    }
+    #ifndef ERROR
+    #ifndef DEBUG
+        DEBUG = 0,
+        INFO,
+        WARNING,
+        ERROR,
+        CRITICAL,
+    #endif
+    #endif
+        Debug = 0,
+        Info,
+        Warning,
+        Error,
+        Critical,
+    };
+
+    class ILogHandler
+    {
+    public:
+        virtual void log(std::string);
+    };
 }
