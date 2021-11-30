@@ -82,4 +82,23 @@ namespace kingkong {
         VARIANT_ALSO_NEGOTIATES       = 506
     };
 
+    inline std::string method_name(HTTPMethod method)
+    {
+        switch(method)
+        {
+            case HTTPMethod::Delete: return "DELETE";
+            case HTTPMethod::Get: return "GET";
+            case HTTPMethod::Head: return "HEAD";
+            case HTTPMethod::Post: return "POST";
+            case HTTPMethod::Put: return "PUT";
+            case HTTPMethod::Connect: return "CONNECT";
+            case HTTPMethod::Options: return "OPTIONS";
+            case HTTPMethod::Trace: return "TRACE";
+            case HTTPMethod::Patch: return "PATCH";
+            case HTTPMethod::Purge: return "PURGE";
+            default: return "invalid";
+        }
+        return "invalid";
+    }
+
 }
