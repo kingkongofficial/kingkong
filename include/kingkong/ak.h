@@ -108,11 +108,11 @@ namespace kingkong {
         DOUBLE,
         STRING,
         PATH,
+
         MAX
     };
 
     struct routing_params
-
     {
         std::vector<int64_t> int_params;
         std::vector<uint64_t> uint_params;
@@ -163,5 +163,21 @@ namespace kingkong {
     {
         return string_params[index];
     }
-
 }
+
+#ifndef KINGKONG_MSVC_WORKAROUND
+constexpr kingkong::HTTPMethod operator"" _method(const char* str, size_t)
+{
+    return kingkong::magic::is_equ_p(str, "GET", 3)     ? kingkong::HTTPMethod::Get :
+           kingkong::magic::is_equ_p(str, "DELETE", 6)  ? kingkong::HTTPMethod::Delete :
+           kingkong::magic::is_equ_p(str, "HEAD", 4)    ? kingkong::HTTPMethod::Head :
+           kingkong::magic::is_equ_p(str, "POST", 4)    ? kingkong::HTTPMethod::Post :
+           kingkong::magic::is_equ_p(str, "PUT", 3)     ? kingkong::HTTPMethod::Put :
+           kingkong::magic::is_equ_p(str, "OPTIONS", 7) ? kingkong::HTTPMethod::Options :
+           kingkong::magic::is_equ_p(str, "CONNECT", 7) ? kingkong::HTTPMethod::Connect :
+           kingkong::magic::is_equ_p(str, "TRACE", 5)   ? kingkong::HTTPMethod::Trace :
+           kingkong::magic::is_equ_p(str, "PATCH", 5)   ? kingkong::HTTPMethod::Patch :
+           kingkong::magic::is_equ_p(str, "PURGE", 5)   ? kingkong::HTTPMethod::Purge :
+                                                            throw std::runtime_error("invalid http method");
+}
+#endif
