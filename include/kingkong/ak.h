@@ -101,4 +101,25 @@ namespace kingkong {
         return "invalid";
     }
 
+    enum class ParamType : char
+    {
+        INT,
+        UINT,
+        DOUBLE,
+        STRING,
+        PATH,
+        MAX
+    };
+
+    struct routing_params
+    {
+        std::vector<int64_t> int_params;
+    };
+
+    template<>
+    inline std::string routing_params::get<std::string>(unsigned index) const
+    {
+        return string_parms[index];
+    }
+
 }
