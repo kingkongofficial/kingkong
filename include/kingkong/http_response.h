@@ -186,7 +186,21 @@ namespace kingkong {
             int statResult;
         };
 
-        void set_static_file_info;
+        void set_static_file_info(std::string path)
+        {
+            file_info.path = path;
+            file_info.statResult = stat(file_info.path.c_str(), &file_info.statbuf);
+#ifndef KINGKONG_ENABLE_COMPRESSION
+            compressed = false;
+#endif 
+            if (file_info.statResult == 0)
+            {
+                std::size_t last_dot = path.find_last_of(".");
+                code = 200;
+                this->add_headers();
+            }
+
+        }
 
     }
 }
