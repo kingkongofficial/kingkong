@@ -146,5 +146,28 @@ namespace kingkong {
         body += body_part
     }
 
+        void end()
+        {
+            if (!completed_)
+            {
+                completed_ = true;
+                if (is_head_response)
+                {
+                    set_header("Content-Length", std::to_string(body.size()));
+                    body = "";
+                    manual_length_header = true;
+                }
+                if (complete_request_handler_)
+                {
+                    complete_request_handler_();
+                }
+            }
+        }
+
+        void end(const std::string& body_part){
+            body += body_part;
+            end();
+        }
+
     }
 }
