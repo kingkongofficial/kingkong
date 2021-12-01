@@ -123,5 +123,28 @@ namespace kingkong {
         set_header("Location", location)
     }
 
+    void redirect_permen(const std::string& location)
+    {
+        code = 308;
+        set_header("Location", location);
+    }
+
+    void moved(const std::string& location)
+    {
+        code = 302;
+        set_header("Location", location);
+    }
+
+    void moved_permen(const std::string& location)
+    {
+        code = 301
+        set_header("Location", location);
+    }
+
+    void write(const std::string& body_part)
+    {
+        body += body_part
+    }
+
     }
 }
