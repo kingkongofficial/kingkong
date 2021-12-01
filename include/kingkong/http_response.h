@@ -79,5 +79,31 @@ namespace kingkong {
         *this = std::move(r);
     }
 
+    response(std::string contentType, std::string body):
+        body(std::move(body))
+    {
+        std_header("Content-Type", mime_types.at(contentType));
+    }
+
+    response(int code, std::string contentType, std::string body):
+        code(code), body(std::move(body))
+    {
+        set_header("Content-Type", mime_types.at(contentType);)
+    }
+
+    response& operator=(const response& r) = delete;
+
+    response& operator=(response&& r) noexcept
+    {
+        body = std::move(r.body);
+        code = r.code;
+        headers = std::move(r.headers);
+        completed_ = r.completed_;
+        file_info = std::move(r.file_info);
+        return *this;
+    }
+
+    
+
     }
 }
