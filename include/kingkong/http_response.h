@@ -55,7 +55,29 @@ namespace kingkong {
     response(std::string body) : body(std::move(body)) {}
     response(int code, std::string body) : code(code), body(std::move(body)) {}
 
-    
+    response(returnable&& value)
+    {
+        body = value.dump();
+        set_header("Content-Type", value.content_type);
+    }
+
+    response(returnable& value)
+    {
+        body = value.dump();
+        set_header("Content-Type", value.content_type);
+    }
+
+    response(int code, returnable& value):
+        code(code)
+    {
+        body = value.dump();
+        set_header("Content-Type", value.content_type);
+    }
+
+    response(response&& r)
+    {
+        *this = std::move(r);
+    }
 
     }
 }
