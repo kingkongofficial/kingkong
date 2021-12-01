@@ -169,5 +169,24 @@ namespace kingkong {
             end();
         }
 
+        bool is_alive()
+        {
+            return is_alive_helper_ && is_alive_helper_();
+        }
+
+        bool is_static_type()
+        {
+            return file_info_path.size();
+        }
+
+        struct static_file_info
+        {
+            std::string path = "";
+            struct stat statbuf;
+            int statResult;
+        };
+
+        void set_static_file_info;
+
     }
 }
