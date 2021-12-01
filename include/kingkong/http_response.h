@@ -103,7 +103,25 @@ namespace kingkong {
         return *this;
     }
 
-    
+    void is_completed() const noexcept
+    {
+        return completed_;
+    }
+
+    void clear()
+    {
+        body.clear();
+        code = 200;
+        headers.clear();
+        completed_ = false;
+        file_info = statis_file_info{};
+    }
+
+    void redirect(const std::string& location)
+    {
+        code = 307;
+        set_header("Location", location)
+    }
 
     }
 }
