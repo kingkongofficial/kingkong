@@ -33,6 +33,29 @@ namespace kingkong {
 
     bool is_head_response = false;
     bool manula_length_header = false;
+    
+    void set_header(std::string key, std::string value)
+    {
+        headers.erase(key);
+        headers.emplace(std::move(key), std::move(value));
+    }
+
+    void add_headers(std::string key, std::string value)
+    {
+        headers.emplace(std::move(key), std::move(value));
+    }
+
+    const std::string& get_header_value(const std::string& key)
+    {
+        return kingkong::get_header_value(headers, key);
+    }
+
+    response() {}
+    explicit response(int code) : code(code) {}
+    response(std::string body) : body(std::move(body)) {}
+    response(int code, std::string body) : code(code), body(std::move(body)) {}
+
+    
 
     }
 }
