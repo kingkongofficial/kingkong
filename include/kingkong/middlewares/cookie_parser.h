@@ -19,6 +19,25 @@ namespace kinkong {
 					return cookie->second;
 				return "";
 			}
-		}
+
+			void set_cookie(const std::string& key, const std::string& value)
+			{
+				cookies_to_add.emplace(key, value);
+			}
+
+			void before_handle(request& req, response& res, context& ctx)
+			{
+				int count = req.headers.count("Cookie");
+				if (!count)
+					return;
+				if (count > 1)
+				{
+					res.code = 400;
+					res.end();
+					return;
+				}
+			}
+
+		};
 	};
 }
