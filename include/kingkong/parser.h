@@ -46,4 +46,26 @@ namespace kingkong {
             return 0;
         }
     }
+
+    static int on_header_value(http_parser* self_, const char* at, size_t length)
+        {
+            HTTPParser* self = static_cast<HTTPParser*>(self_);
+            switch (self->header_building_state)
+            {
+                case 0:
+                    self->header_value.insert(self->header_value.end(), at, at + length);
+                    break;
+                case 1:
+                    self->header_building_state = 0;
+                    self->header_value.assign(at, at + length);
+                    break;
+            }
+            return 0;
+        }
+
+    HTTPParser(Handler* handler):
+        handler_(handler)
+    {
+        http_parser_init(this, HTTP_REQUEST);
+    }
 }
