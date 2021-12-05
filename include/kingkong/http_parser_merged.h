@@ -18,16 +18,16 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  */
-#ifndef CROW_http_parser_h
-#define CROW_http_parser_h
+#ifndef KINGKONG_http_parser_h
+#define KINGKONG_http_parser_h
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* Also update SONAME in the Makefile whenever you change these. */
-#define CROW_HTTP_PARSER_VERSION_MAJOR 2
-#define CROW_HTTP_PARSER_VERSION_MINOR 3
-#define CROW_HTTP_PARSER_VERSION_PATCH 0
+#define KINGKONG_HTTP_PARSER_VERSION_MAJOR 2
+#define KINGKONG_HTTP_PARSER_VERSION_MINOR 3
+#define KINGKONG_HTTP_PARSER_VERSION_PATCH 0
 
 #include <sys/types.h>
 #if defined(_WIN32) && !defined(__MINGW32__) && (!defined(_MSC_VER) || _MSC_VER<1600)
@@ -48,19 +48,19 @@ typedef unsigned __int64 uint64_t;
 /* Compile with -DHTTP_PARSER_STRICT=0 to make less checks, but run
  * faster
  */
-#ifndef CROW_HTTP_PARSER_STRICT
-# define CROW_HTTP_PARSER_STRICT 1
+#ifndef KINGKONG_HTTP_PARSER_STRICT
+# define KINGKONG_HTTP_PARSER_STRICT 1
 #endif
 
-/* Maximium header size allowed. If the macro is not defined
+/* Maximium header size allowed. If the ma is not defined
  * before including this header then the default is used. To
  * change the maximum header size, define the macro in the build
  * environment (e.g. -DHTTP_MAX_HEADER_SIZE=<value>). To remove
  * the effective limit on the size of the header, define the macro
  * to a very large number (e.g. -DHTTP_MAX_HEADER_SIZE=0x7fffffff)
  */
-#ifndef CROW_HTTP_MAX_HEADER_SIZE
-# define CROW_HTTP_MAX_HEADER_SIZE (80*1024)
+#ifndef KINGKONG_HTTP_MAX_HEADER_SIZE
+# define KINGKONG_HTTP_MAX_HEADER_SIZE (80*1024)
 #endif
 
 typedef struct http_parser http_parser;
@@ -85,46 +85,46 @@ typedef int (*http_cb) (http_parser*);
 
 
 /* Request Methods */
-#define CROW_HTTP_METHOD_MAP(CROW_XX)         \
-  CROW_XX(0,  DELETE,      DELETE)       \
-  CROW_XX(1,  GET,         GET)          \
-  CROW_XX(2,  HEAD,        HEAD)         \
-  CROW_XX(3,  POST,        POST)         \
-  CROW_XX(4,  PUT,         PUT)          \
+#define KINGKONG_HTTP_METHOD_MAP(KINGKONG_XX)         \
+  KINGKONG_XX(0,  DELETE,      DELETE)       \
+  KINGKONG_XX(1,  GET,         GET)          \
+  KINGKONG_XX(2,  HEAD,        HEAD)         \
+  KINGKONG_XX(3,  POST,        POST)         \
+  KINGKONG_XX(4,  PUT,         PUT)          \
   /* pathological */                \
-  CROW_XX(5,  CONNECT,     CONNECT)      \
-  CROW_XX(6,  OPTIONS,     OPTIONS)      \
-  CROW_XX(7,  TRACE,       TRACE)        \
+  KINGKONG_XX(5,  CONNECT,     CONNECT)      \
+  KINGKONG_XX(6,  OPTIONS,     OPTIONS)      \
+  KINGKONG_XX(7,  TRACE,       TRACE)        \
   /* RFC-5789 */                    \
-  CROW_XX(8, PATCH,       PATCH)        \
-  CROW_XX(9, PURGE,       PURGE)        \
+  KINGKONG_XX(8, PATCH,       PATCH)        \
+  KINGKONG_XX(9, PURGE,       PURGE)        \
   /* webdav */                      \
-  CROW_XX(10,  COPY,        COPY)         \
-  CROW_XX(11,  LOCK,        LOCK)         \
-  CROW_XX(12, MKCOL,       MKCOL)        \
-  CROW_XX(13, MOVE,        MOVE)         \
-  CROW_XX(14, PROPFIND,    PROPFIND)     \
-  CROW_XX(15, PROPPATCH,   PROPPATCH)    \
-  CROW_XX(16, SEARCH,      SEARCH)       \
-  CROW_XX(17, UNLOCK,      UNLOCK)       \
+  KINGKONG_XX(10,  COPY,        COPY)         \
+  KINGKONG_XX(11,  LOCK,        LOCK)         \
+  KINGKONG_XX(12, MKCOL,       MKCOL)        \
+  KINGKONG_XX(13, MOVE,        MOVE)         \
+  KINGKONG_XX(14, PROPFIND,    PROPFIND)     \
+  KINGKONG_XX(15, PROPPATCH,   PROPPATCH)    \
+  KINGKONG_XX(16, SEARCH,      SEARCH)       \
+  KINGKONG_XX(17, UNLOCK,      UNLOCK)       \
   /* subversion */                  \
-  CROW_XX(18, REPORT,      REPORT)       \
-  CROW_XX(19, MKACTIVITY,  MKACTIVITY)   \
-  CROW_XX(20, CHECKOUT,    CHECKOUT)     \
-  CROW_XX(21, MERGE,       MERGE)        \
+  KINGKONG_XX(18, REPORT,      REPORT)       \
+  KINGKONG_XX(19, MKACTIVITY,  MKACTIVITY)   \
+  KINGKONG_XX(20, CHECKOUT,    CHECKOUT)     \
+  KINGKONG_XX(21, MERGE,       MERGE)        \
   /* upnp */                        \
-  CROW_XX(22, MSEARCH,     M-SEARCH)     \
-  CROW_XX(23, NOTIFY,      NOTIFY)       \
-  CROW_XX(24, SUBSCRIBE,   SUBSCRIBE)    \
-  CROW_XX(25, UNSUBSCRIBE, UNSUBSCRIBE)  \
+  KINGKONG_XX(22, MSEARCH,     M-SEARCH)     \
+  KINGKONG_XX(23, NOTIFY,      NOTIFY)       \
+  KINGKONG_XX(24, SUBSCRIBE,   SUBSCRIBE)    \
+  KINGKONG_XX(25, UNSUBSCRIBE, UNSUBSCRIBE)  \
   /* CalDAV */                      \
-  CROW_XX(26, MKCALENDAR,  MKCALENDAR)   \
+  KINGKONG_XX(26, MKCALENDAR,  MKCALENDAR)   \
 
 enum http_method
   {
-#define CROW_XX(num, name, string) HTTP_##name = num,
-  CROW_HTTP_METHOD_MAP(CROW_XX)
-#undef CROW_XX
+#define KINGKONG_XX(num, name, string) HTTP_##name = num,
+  KINGKONG_HTTP_METHOD_MAP(KINGKONG_XX)
+#undef KINGKONG_XX
   };
 
 
@@ -146,58 +146,58 @@ enum http_connection_flags
  * 
  * The provided argument should be a macro that takes 2 arguments.
  */
-#define CROW_HTTP_ERRNO_MAP(CROW_XX)                                           \
+#define KINGKONG_HTTP_ERRNO_MAP(KINGKONG_XX)                                           \
   /* No error */                                                     \
-  CROW_XX(OK, "success")                                                  \
+  KINGKONG_XX(OK, "success")                                                  \
                                                                      \
   /* Callback-related errors */                                      \
-  CROW_XX(CB_message_begin, "the on_message_begin callback failed")       \
-  CROW_XX(CB_url, "the on_url callback failed")                           \
-  CROW_XX(CB_header_field, "the on_header_field callback failed")         \
-  CROW_XX(CB_header_value, "the on_header_value callback failed")         \
-  CROW_XX(CB_headers_complete, "the on_headers_complete callback failed") \
-  CROW_XX(CB_body, "the on_body callback failed")                         \
-  CROW_XX(CB_message_complete, "the on_message_complete callback failed") \
-  CROW_XX(CB_status, "the on_status callback failed")                     \
+  KINGKONG_XX(CB_message_begin, "the on_message_begin callback failed")       \
+  KINGKONG_XX(CB_url, "the on_url callback failed")                           \
+  KINGKONG_XX(CB_header_field, "the on_header_field callback failed")         \
+  KINGKONG_XX(CB_header_value, "the on_header_value callback failed")         \
+  KINGKONG_XX(CB_headers_complete, "the on_headers_complete callback failed") \
+  KINGKONG_XX(CB_body, "the on_body callback failed")                         \
+  KINGKONG_XX(CB_message_complete, "the on_message_complete callback failed") \
+  KINGKONG_XX(CB_status, "the on_status callback failed")                     \
                                                                      \
   /* Parsing-related errors */                                       \
-  CROW_XX(INVALID_EOF_STATE, "stream ended at an unexpected time")        \
-  CROW_XX(HEADER_OVERFLOW,                                                \
+  KINGKONG_XX(INVALID_EOF_STATE, "stream ended at an unexpected time")        \
+  KINGKONG_XX(HEADER_OVERFLOW,                                                \
      "too many header bytes seen; overflow detected")                \
-  CROW_XX(CLOSED_CONNECTION,                                              \
+  KINGKONG_XX(CLOSED_CONNECTION,                                              \
      "data received after completed connection: close message")      \
-  CROW_XX(INVALID_VERSION, "invalid HTTP version")                        \
-  CROW_XX(INVALID_STATUS, "invalid HTTP status code")                     \
-  CROW_XX(INVALID_METHOD, "invalid HTTP method")                          \
-  CROW_XX(INVALID_URL, "invalid URL")                                     \
-  CROW_XX(INVALID_HOST, "invalid host")                                   \
-  CROW_XX(INVALID_PORT, "invalid port")                                   \
-  CROW_XX(INVALID_PATH, "invalid path")                                   \
-  CROW_XX(INVALID_QUERY_STRING, "invalid query string")                   \
-  CROW_XX(INVALID_FRAGMENT, "invalid fragment")                           \
-  CROW_XX(LF_EXPECTED, "CROW_LF character expected")                           \
-  CROW_XX(INVALID_HEADER_TOKEN, "invalid character in header")            \
-  CROW_XX(INVALID_CONTENT_LENGTH,                                         \
+  KINGKONG_XX(INVALID_VERSION, "invalid HTTP version")                        \
+  KINGKONG_XX(INVALID_STATUS, "invalid HTTP status code")                     \
+  KINGKONG_XX(INVALID_METHOD, "invalid HTTP method")                          \
+  KINGKONG_XX(INVALID_URL, "invalid URL")                                     \
+  KINGKONG_XX(INVALID_HOST, "invalid host")                                   \
+  KINGKONG_XX(INVALID_PORT, "invalid port")                                   \
+  KINGKONG_XX(INVALID_PATH, "invalid path")                                   \
+  KINGKONG_XX(INVALID_QUERY_STRING, "invalid query string")                   \
+  KINGKONG_XX(INVALID_FRAGMENT, "invalid fragment")                           \
+  KINGKONG_XX(LF_EXPECTED, "KINGKONG_LF character expected")                           \
+  KINGKONG_XX(INVALID_HEADER_TOKEN, "invalid character in header")            \
+  KINGKONG_XX(INVALID_CONTENT_LENGTH,                                         \
      "invalid character in content-length header")                   \
-  CROW_XX(INVALID_CHUNK_SIZE,                                             \
+  KINGKONG_XX(INVALID_CHUNK_SIZE,                                             \
      "invalid character in chunk size header")                       \
-  CROW_XX(INVALID_CONSTANT, "invalid constant string")                    \
-  CROW_XX(INVALID_INTERNAL_STATE, "encountered unexpected internal state")\
-  CROW_XX(STRICT, "strict mode assertion failed")                         \
-  CROW_XX(PAUSED, "parser is paused")                                     \
-  CROW_XX(UNKNOWN, "an unknown error occurred")
+  KINGKONG_XX(INVALID_CONSTANT, "invalid constant string")                    \
+  KINGKONG_XX(INVALID_INTERNAL_STATE, "encountered unexpected internal state")\
+  KINGKONG_XX(STRICT, "strict mode assertion failed")                         \
+  KINGKONG_XX(PAUSED, "parser is paused")                                     \
+  KINGKONG_XX(UNKNOWN, "an unknown error occurred")
 
 
 /* Define HPE_* values for each errno value above */
-#define CROW_HTTP_ERRNO_GEN(n, s) HPE_##n,
+#define KINGKONG_HTTP_ERRNO_GEN(n, s) HPE_##n,
 enum http_errno {
-  CROW_HTTP_ERRNO_MAP(CROW_HTTP_ERRNO_GEN)
+  KINGKONG_HTTP_ERRNO_MAP(KINGKONG_HTTP_ERRNO_GEN)
 };
-#undef CROW_HTTP_ERRNO_GEN
+#undef KINGKONG_HTTP_ERRNO_GEN
 
 
 /* Get an http_errno value from an http_parser */
-#define CROW_HTTP_PARSER_ERRNO(p)            ((enum http_errno) (p)->http_errno)
+#define KINGKONG_HTTP_PARSER_ERRNO(p)            ((enum http_errno) (p)->http_errno)
 
 
 struct http_parser {
@@ -352,70 +352,70 @@ int http_body_is_final(const http_parser *parser);
 #include <string.h>
 #include <limits.h>
 
-#ifndef CROW_ULLONG_MAX
-# define CROW_ULLONG_MAX ((uint64_t) -1) /* 2^64-1 */
+#ifndef KINGKONG_ULLONG_MAX
+# define KINGKONG_ULLONG_MAX ((uint64_t) -1) /* 2^64-1 */
 #endif
 
-#ifndef CROW_MIN
-# define CROW_MIN(a,b) ((a) < (b) ? (a) : (b))
+#ifndef KINGKONG_MIN
+# define KINGKONG_MIN(a,b) ((a) < (b) ? (a) : (b))
 #endif
 
-#ifndef CROW_ARRAY_SIZE
-# define CROW_ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
+#ifndef KINGKONG_ARRAY_SIZE
+# define KINGKONG_ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
 #endif
 
-#ifndef CROW_BIT_AT
-# define CROW_BIT_AT(a, i)                                                \
+#ifndef KINGKONG_BIT_AT
+# define KINGKONG_BIT_AT(a, i)                                                \
   (!!((unsigned int) (a)[(unsigned int) (i) >> 3] &                  \
    (1 << ((unsigned int) (i) & 7))))
 #endif
 
-#ifndef CROW_ELEM_AT
-# define CROW_ELEM_AT(a, i, v) ((unsigned int) (i) < CROW_ARRAY_SIZE(a) ? (a)[(i)] : (v))
+#ifndef KINGKONG_ELEM_AT
+# define KINGKONG_ELEM_AT(a, i, v) ((unsigned int) (i) < KINGKONG_ARRAY_SIZE(a) ? (a)[(i)] : (v))
 #endif
 
-#define CROW_SET_ERRNO(e)                                                 \
+#define KINGKONG_SET_ERRNO(e)                                                 \
 do {                                                                 \
   parser->http_errno = (e);                                          \
 } while(0)
 
 
 /* Run the notify callback FOR, returning ER if it fails */
-#define CROW_CALLBACK_NOTIFY_(FOR, ER)                                    \
+#define KINGKONG_CALLBACK_NOTIFY_(FOR, ER)                                    \
 do {                                                                 \
-  assert(CROW_HTTP_PARSER_ERRNO(parser) == HPE_OK);                       \
+  assert(KINGKONG_HTTP_PARSER_ERRNO(parser) == HPE_OK);                       \
                                                                      \
   if (settings->on_##FOR) {                                          \
     if (0 != settings->on_##FOR(parser)) {                           \
-      CROW_SET_ERRNO(HPE_CB_##FOR);                                       \
+      KINGKONG_SET_ERRNO(HPE_CB_##FOR);                                       \
     }                                                                \
                                                                      \
     /* We either errored above or got paused; get out */             \
-    if (CROW_HTTP_PARSER_ERRNO(parser) != HPE_OK) {                       \
+    if (KINGKONG_HTTP_PARSER_ERRNO(parser) != HPE_OK) {                       \
       return (ER);                                                   \
     }                                                                \
   }                                                                  \
 } while (0)
 
 /* Run the notify callback FOR and consume the current byte */
-#define CROW_CALLBACK_NOTIFY(FOR)            CROW_CALLBACK_NOTIFY_(FOR, p - data + 1)
+#define KINGKONG_CALLBACK_NOTIFY(FOR)            KINGKONG_CALLBACK_NOTIFY_(FOR, p - data + 1)
 
 /* Run the notify callback FOR and don't consume the current byte */
-#define CROW_CALLBACK_NOTIFY_NOADVANCE(FOR)  CROW_CALLBACK_NOTIFY_(FOR, p - data)
+#define KINGKONG_CALLBACK_NOTIFY_NOADVANCE(FOR)  KINGKONG_CALLBACK_NOTIFY_(FOR, p - data)
 
 /* Run data callback FOR with LEN bytes, returning ER if it fails */
-#define CROW_CALLBACK_DATA_(FOR, LEN, ER)                                 \
+#define KINGKONG_CALLBACK_DATA_(FOR, LEN, ER)                                 \
 do {                                                                 \
-  assert(CROW_HTTP_PARSER_ERRNO(parser) == HPE_OK);                       \
+  assert(KINGKONG_HTTP_PARSER_ERRNO(parser) == HPE_OK);                       \
                                                                      \
   if (FOR##_mark) {                                                  \
     if (settings->on_##FOR) {                                        \
       if (0 != settings->on_##FOR(parser, FOR##_mark, (LEN))) {      \
-        CROW_SET_ERRNO(HPE_CB_##FOR);                                     \
+        KINGKONG_SET_ERRNO(HPE_CB_##FOR);                                     \
       }                                                              \
                                                                      \
       /* We either errored above or got paused; get out */           \
-      if (CROW_HTTP_PARSER_ERRNO(parser) != HPE_OK) {                     \
+      if (KINGKONG_HTTP_PARSER_ERRNO(parser) != HPE_OK) {                     \
         return (ER);                                                 \
       }                                                              \
     }                                                                \
@@ -424,15 +424,15 @@ do {                                                                 \
 } while (0)
   
 /* Run the data callback FOR and consume the current byte */
-#define CROW_CALLBACK_DATA(FOR)                                           \
-    CROW_CALLBACK_DATA_(FOR, p - FOR##_mark, p - data + 1)
+#define KINGKONG_CALLBACK_DATA(FOR)                                           \
+    KINGKONG_CALLBACK_DATA_(FOR, p - FOR##_mark, p - data + 1)
 
 /* Run the data callback FOR and don't consume the current byte */
-#define CROW_CALLBACK_DATA_NOADVANCE(FOR)                                 \
-    CROW_CALLBACK_DATA_(FOR, p - FOR##_mark, p - data)
+#define KINGKONG_CALLBACK_DATA_NOADVANCE(FOR)                                 \
+    KINGKONG_CALLBACK_DATA_(FOR, p - FOR##_mark, p - data)
 
 /* Set the mark FOR; non-destructive if mark is already set */
-#define CROW_MARK(FOR)                                                    \
+#define KINGKONG_MARK(FOR)                                                    \
 do {                                                                 \
   if (!FOR##_mark) {                                                 \
     FOR##_mark = p;                                                  \
@@ -440,14 +440,14 @@ do {                                                                 \
 } while (0)
 
 
-#define CROW_PROXY_CONNECTION "proxy-connection"
-#define CROW_CONNECTION "connection"
-#define CROW_CONTENT_LENGTH "content-length"
-#define CROW_TRANSFER_ENCODING "transfer-encoding"
-#define CROW_UPGRADE "upgrade"
-#define CROW_CHUNKED "chunked"
-#define CROW_KEEP_ALIVE "keep-alive"
-#define CROW_CLOSE "close"
+#define KINGKONG_PROXY_CONNECTION "proxy-connection"
+#define KINGKONG_CONNECTION "connection"
+#define KINGKONG_CONTENT_LENGTH "content-length"
+#define KINGKONG_TRANSFER_ENCODING "transfer-encoding"
+#define KINGKONG_UPGRADE "upgrade"
+#define KINGKONG_CHUNKED "chunked"
+#define KINGKONG_KEEP_ALIVE "keep-alive"
+#define KINGKONG_CLOSE "close"
 
 
 
@@ -519,7 +519,7 @@ enum state
 
   /* Important: 's_headers_done' must be the last 'header' state. All
    * states beyond this must be 'body' states. It is used for overflow
-   * checking. See the CROW_PARSING_HEADER() macro.
+   * checking. See the KINGKONG_PARSING_HEADER() macro.
    */
 
   , s_chunk_data
@@ -533,7 +533,7 @@ enum state
   };
 
 
-#define CROW_PARSING_HEADER(state) (state <= s_headers_done)
+#define KINGKONG_PARSING_HEADER(state) (state <= s_headers_done)
 
 
 enum header_states
@@ -577,48 +577,48 @@ enum http_host_state
 };
 
 /* Macros for character classes; depends on strict-mode  */
-#define CROW_CR                  '\r'
-#define CROW_LF                  '\n'
-#define CROW_LOWER(c)            (unsigned char)(c | 0x20)
-#define CROW_IS_ALPHA(c)         (CROW_LOWER(c) >= 'a' && CROW_LOWER(c) <= 'z')
-#define CROW_IS_NUM(c)           ((c) >= '0' && (c) <= '9')
-#define CROW_IS_ALPHANUM(c)      (CROW_IS_ALPHA(c) || CROW_IS_NUM(c))
-#define CROW_IS_HEX(c)           (CROW_IS_NUM(c) || (CROW_LOWER(c) >= 'a' && CROW_LOWER(c) <= 'f'))
-#define CROW_IS_MARK(c)          ((c) == '-' || (c) == '_' || (c) == '.' || \
+#define KINGKONG_CR                  '\r'
+#define KINGKONG_LF                  '\n'
+#define KINGKONG_LOWER(c)            (unsigned char)(c | 0x20)
+#define KINGKONG_IS_ALPHA(c)         (KINGKONG_LOWER(c) >= 'a' && KINGKONG_LOWER(c) <= 'z')
+#define KINGKONG_IS_NUM(c)           ((c) >= '0' && (c) <= '9')
+#define KINGKONG_IS_ALPHANUM(c)      (KINGKONG_IS_ALPHA(c) || KINGKONG_IS_NUM(c))
+#define KINGKONG_IS_HEX(c)           (KINGKONG_IS_NUM(c) || (KINGKONG_LOWER(c) >= 'a' && KINGKONG_LOWER(c) <= 'f'))
+#define KINGKONG_IS_MARK(c)          ((c) == '-' || (c) == '_' || (c) == '.' || \
   (c) == '!' || (c) == '~' || (c) == '*' || (c) == '\'' || (c) == '(' || \
   (c) == ')')
-#define CROW_IS_USERINFO_CHAR(c) (CROW_IS_ALPHANUM(c) || CROW_IS_MARK(c) || (c) == '%' || \
+#define KINGKONG_IS_USERINFO_CHAR(c) (KINGKONG_IS_ALPHANUM(c) || KINGKONG_IS_MARK(c) || (c) == '%' || \
   (c) == ';' || (c) == ':' || (c) == '&' || (c) == '=' || (c) == '+' || \
   (c) == '$' || (c) == ',')
 
-#if CROW_HTTP_PARSER_STRICT
-#define CROW_TOKEN(c)            (tokens[(unsigned char)c])
-#define CROW_IS_URL_CHAR(c)      (CROW_BIT_AT(normal_url_char, (unsigned char)c))
-#define CROW_IS_HOST_CHAR(c)     (CROW_IS_ALPHANUM(c) || (c) == '.' || (c) == '-')
+#if KINGKONG_HTTP_PARSER_STRICT
+#define KINGKONG_TOKEN(c)            (tokens[(unsigned char)c])
+#define KINGKONG_IS_URL_CHAR(c)      (KINGKONG_BIT_AT(normal_url_char, (unsigned char)c))
+#define KINGKONG_IS_HOST_CHAR(c)     (KINGKONG_IS_ALPHANUM(c) || (c) == '.' || (c) == '-')
 #else
-#define CROW_TOKEN(c)            ((c == ' ') ? ' ' : tokens[(unsigned char)c])
-#define CROW_IS_URL_CHAR(c)                                                         \
-  (CROW_BIT_AT(normal_url_char, (unsigned char)c) || ((c) & 0x80))
-#define CROW_IS_HOST_CHAR(c)                                                        \
-  (CROW_IS_ALPHANUM(c) || (c) == '.' || (c) == '-' || (c) == '_')
+#define KINGKONG_TOKEN(c)            ((c == ' ') ? ' ' : tokens[(unsigned char)c])
+#define KINGKONG_IS_URL_CHAR(c)                                                         \
+  (KINGKONG_BIT_AT(normal_url_char, (unsigned char)c) || ((c) & 0x80))
+#define KINGKONG_IS_HOST_CHAR(c)                                                        \
+  (KINGKONG_IS_ALPHANUM(c) || (c) == '.' || (c) == '-' || (c) == '_')
 #endif
 
 
-#define CROW_start_state (parser->type == HTTP_REQUEST ? s_start_req : s_start_res)
+#define KINGKONG_start_state (parser->type == HTTP_REQUEST ? s_start_req : s_start_res)
 
 
-#if CROW_HTTP_PARSER_STRICT
-# define CROW_STRICT_CHECK(cond)                                          \
+#if KINGKONG_HTTP_PARSER_STRICT
+# define KINGKONG_STRICT_CHECK(cond)                                          \
 do {                                                                 \
   if (cond) {                                                        \
-    CROW_SET_ERRNO(HPE_STRICT);                                           \
+    KINGKONG_SET_ERRNO(HPE_STRICT);                                           \
     goto error;                                                      \
   }                                                                  \
 } while (0)
-# define CROW_NEW_MESSAGE() (http_should_keep_alive(parser) ? CROW_start_state : s_dead)
+# define KINGKONG_NEW_MESSAGE() (http_should_keep_alive(parser) ? KINGKONG_start_state : s_dead)
 #else
-# define CROW_STRICT_CHECK(cond)
-# define CROW_NEW_MESSAGE() CROW_start_state
+# define KINGKONG_STRICT_CHECK(cond)
+# define KINGKONG_NEW_MESSAGE() KINGKONG_start_state
 #endif
 
 
@@ -639,10 +639,10 @@ int http_message_needs_eof(const http_parser *parser);
 inline enum state
 parse_url_char(enum state s, const char ch)
 {
-#if CROW_HTTP_PARSER_STRICT
-# define CROW_T(v) 0
+#if KINGKONG_HTTP_PARSER_STRICT
+# define KINGKONG_T(v) 0
 #else
-# define CROW_T(v) v
+# define KINGKONG_T(v) v
 #endif
 
 
@@ -650,7 +650,7 @@ static const uint8_t normal_url_char[32] = {
 /*   0 nul    1 soh    2 stx    3 etx    4 eot    5 enq    6 ack    7 bel  */
         0    |   0    |   0    |   0    |   0    |   0    |   0    |   0,
 /*   8 bs     9 ht    10 nl    11 vt    12 np    13 cr    14 so    15 si   */
-        0    | CROW_T(2)   |   0    |   0    | CROW_T(16)  |   0    |   0    |   0,
+        0    | KINGKONG_T(2)   |   0    |   0    | KINGKONG_T(16)  |   0    |   0    |   0,
 /*  16 dle   17 dc1   18 dc2   19 dc3   20 dc4   21 nak   22 syn   23 etb */
         0    |   0    |   0    |   0    |   0    |   0    |   0    |   0,
 /*  24 can   25 em    26 sub   27 esc   28 fs    29 gs    30 rs    31 us  */
@@ -667,7 +667,7 @@ static const uint8_t normal_url_char[32] = {
         1    |   2    |   4    |   8    |   16   |   32   |   64   |  128,
 /*  72  H    73  I    74  J    75  K    76  L    77  M    78  N    79  O  */
         1    |   2    |   4    |   8    |   16   |   32   |   64   |  128,
-/*  80  P    81  Q    82  R    83  S    84  CROW_T    85  U    86  V    87  W  */
+/*  80  P    81  Q    82  R    83  S    84  KINGKONG_T    85  U    86  V    87  W  */
         1    |   2    |   4    |   8    |   16   |   32   |   64   |  128,
 /*  88  X    89  Y    90  Z    91  [    92  \    93  ]    94  ^    95  _  */
         1    |   2    |   4    |   8    |   16   |   32   |   64   |  128,
@@ -680,13 +680,13 @@ static const uint8_t normal_url_char[32] = {
 /* 120  x   121  y   122  z   123  {   124  |   125  }   126  ~   127 del */
         1    |   2    |   4    |   8    |   16   |   32   |   64   |   0, };
 
-#undef CROW_T
+#undef KINGKONG_T
 
   if (ch == ' ' || ch == '\r' || ch == '\n') {
     return s_dead;
   }
 
-#if CROW_HTTP_PARSER_STRICT
+#if KINGKONG_HTTP_PARSER_STRICT
   if (ch == '\t' || ch == '\f') {
     return s_dead;
   }
@@ -702,14 +702,14 @@ static const uint8_t normal_url_char[32] = {
         return s_req_path;
       }
 
-      if (CROW_IS_ALPHA(ch)) {
+      if (KINGKONG_IS_ALPHA(ch)) {
         return s_req_schema;
       }
 
       break;
 
     case s_req_schema:
-      if (CROW_IS_ALPHA(ch)) {
+      if (KINGKONG_IS_ALPHA(ch)) {
         return s;
       }
 
@@ -753,14 +753,14 @@ static const uint8_t normal_url_char[32] = {
         return s_req_server_with_at;
       }
 
-      if (CROW_IS_USERINFO_CHAR(ch) || ch == '[' || ch == ']') {
+      if (KINGKONG_IS_USERINFO_CHAR(ch) || ch == '[' || ch == ']') {
         return s_req_server;
       }
 
       break;
 
     case s_req_path:
-      if (CROW_IS_URL_CHAR(ch)) {
+      if (KINGKONG_IS_URL_CHAR(ch)) {
         return s;
       }
 
@@ -776,7 +776,7 @@ static const uint8_t normal_url_char[32] = {
 
     case s_req_query_string_start:
     case s_req_query_string:
-      if (CROW_IS_URL_CHAR(ch)) {
+      if (KINGKONG_IS_URL_CHAR(ch)) {
         return s_req_query_string;
       }
 
@@ -792,7 +792,7 @@ static const uint8_t normal_url_char[32] = {
       break;
 
     case s_req_fragment_start:
-      if (CROW_IS_URL_CHAR(ch)) {
+      if (KINGKONG_IS_URL_CHAR(ch)) {
         return s_req_fragment;
       }
 
@@ -807,7 +807,7 @@ static const uint8_t normal_url_char[32] = {
       break;
 
     case s_req_fragment:
-      if (CROW_IS_URL_CHAR(ch)) {
+      if (KINGKONG_IS_URL_CHAR(ch)) {
         return s;
       }
 
@@ -834,9 +834,9 @@ inline size_t http_parser_execute (http_parser *parser,
 {
 static const char *method_strings[] =
   {
-#define CROW_XX(num, name, string) #string,
-  CROW_HTTP_METHOD_MAP(CROW_XX)
-#undef CROW_XX
+#define KINGKONG_XX(num, name, string) #string,
+  KINGKONG_HTTP_METHOD_MAP(KINGKONG_XX)
+#undef KINGKONG_XX
   };
 
 /* Tokens as defined by rfc 2616. Also lowercases them.
@@ -904,17 +904,17 @@ static const int8_t unhex[256] =
   const char *status_mark = 0;
 
   /* We're in an error state. Don't bother doing anything. */
-  if (CROW_HTTP_PARSER_ERRNO(parser) != HPE_OK) {
+  if (KINGKONG_HTTP_PARSER_ERRNO(parser) != HPE_OK) {
     return 0;
   }
 
   if (len == 0) {
     switch (parser->state) {
       case s_body_identity_eof:
-        /* Use of CROW_CALLBACK_NOTIFY() here would erroneously return 1 byte read if
+        /* Use of KINGKONG_CALLBACK_NOTIFY() here would erroneously return 1 byte read if
          * we got paused.
          */
-        CROW_CALLBACK_NOTIFY_NOADVANCE(message_complete);
+        KINGKONG_CALLBACK_NOTIFY_NOADVANCE(message_complete);
         return 0;
 
       case s_dead:
@@ -924,7 +924,7 @@ static const int8_t unhex[256] =
         return 0;
 
       default:
-        CROW_SET_ERRNO(HPE_INVALID_EOF_STATE);
+        KINGKONG_SET_ERRNO(HPE_INVALID_EOF_STATE);
         return 1;
     }
   }
@@ -956,21 +956,21 @@ static const int8_t unhex[256] =
   for (p=data; p != data + len; p++) {
     ch = *p;
 
-    if (CROW_PARSING_HEADER(parser->state)) {
+    if (KINGKONG_PARSING_HEADER(parser->state)) {
       ++parser->nread;
       /* Don't allow the total size of the HTTP headers (including the status
-       * line) to exceed CROW_HTTP_MAX_HEADER_SIZE.  This check is here to protect
+       * line) to exceed KINGKONG_HTTP_MAX_HEADER_SIZE.  This check is here to protect
        * embedders against denial-of-service attacks where the attacker feeds
        * us a never-ending header that the embedder keeps buffering.
        *
        * This check is arguably the responsibility of embedders but we're doing
        * it on the embedder's behalf because most won't bother and this way we
-       * make the web a little safer.  CROW_HTTP_MAX_HEADER_SIZE is still far bigger
+       * make the web a little safer.  KINGKONG_HTTP_MAX_HEADER_SIZE is still far bigger
        * than any reasonable request or response so this should never affect
        * day-to-day operation.
        */
-      if (parser->nread > (CROW_HTTP_MAX_HEADER_SIZE)) {
-        CROW_SET_ERRNO(HPE_HEADER_OVERFLOW);
+      if (parser->nread > (KINGKONG_HTTP_MAX_HEADER_SIZE)) {
+        KINGKONG_SET_ERRNO(HPE_HEADER_OVERFLOW);
         goto error;
       }
     }
@@ -982,23 +982,23 @@ static const int8_t unhex[256] =
         /* this state is used after a 'Connection: close' message
          * the parser will error out if it reads another message
          */
-        if (ch == CROW_CR || ch == CROW_LF)
+        if (ch == KINGKONG_CR || ch == KINGKONG_LF)
           break;
 
-        CROW_SET_ERRNO(HPE_CLOSED_CONNECTION);
+        KINGKONG_SET_ERRNO(HPE_CLOSED_CONNECTION);
         goto error;
 
       case s_start_req_or_res:
       {
-        if (ch == CROW_CR || ch == CROW_LF)
+        if (ch == KINGKONG_CR || ch == KINGKONG_LF)
           break;
         parser->flags = 0;
-        parser->content_length = CROW_ULLONG_MAX;
+        parser->content_length = KINGKONG_ULLONG_MAX;
 
         if (ch == 'H') {
           parser->state = s_res_or_resp_H;
 
-          CROW_CALLBACK_NOTIFY(message_begin);
+          KINGKONG_CALLBACK_NOTIFY(message_begin);
         } else {
           parser->type = HTTP_REQUEST;
           parser->state = s_start_req;
@@ -1014,7 +1014,7 @@ static const int8_t unhex[256] =
           parser->state = s_res_HT;
         } else {
           if (ch != 'E') {
-            CROW_SET_ERRNO(HPE_INVALID_CONSTANT);
+            KINGKONG_SET_ERRNO(HPE_INVALID_CONSTANT);
             goto error;
           }
 
@@ -1028,49 +1028,49 @@ static const int8_t unhex[256] =
       case s_start_res:
       {
         parser->flags = 0;
-        parser->content_length = CROW_ULLONG_MAX;
+        parser->content_length = KINGKONG_ULLONG_MAX;
 
         switch (ch) {
           case 'H':
             parser->state = s_res_H;
             break;
 
-          case CROW_CR:
-          case CROW_LF:
+          case KINGKONG_CR:
+          case KINGKONG_LF:
             break;
 
           default:
-            CROW_SET_ERRNO(HPE_INVALID_CONSTANT);
+            KINGKONG_SET_ERRNO(HPE_INVALID_CONSTANT);
             goto error;
         }
 
-        CROW_CALLBACK_NOTIFY(message_begin);
+        KINGKONG_CALLBACK_NOTIFY(message_begin);
         break;
       }
 
       case s_res_H:
-        CROW_STRICT_CHECK(ch != 'T');
+        KINGKONG_STRICT_CHECK(ch != 'T');
         parser->state = s_res_HT;
         break;
 
       case s_res_HT:
-        CROW_STRICT_CHECK(ch != 'T');
+        KINGKONG_STRICT_CHECK(ch != 'T');
         parser->state = s_res_HTT;
         break;
 
       case s_res_HTT:
-        CROW_STRICT_CHECK(ch != 'P');
+        KINGKONG_STRICT_CHECK(ch != 'P');
         parser->state = s_res_HTTP;
         break;
 
       case s_res_HTTP:
-        CROW_STRICT_CHECK(ch != '/');
+        KINGKONG_STRICT_CHECK(ch != '/');
         parser->state = s_res_first_http_major;
         break;
 
       case s_res_first_http_major:
         if (ch < '0' || ch > '9') {
-          CROW_SET_ERRNO(HPE_INVALID_VERSION);
+          KINGKONG_SET_ERRNO(HPE_INVALID_VERSION);
           goto error;
         }
 
@@ -1086,8 +1086,8 @@ static const int8_t unhex[256] =
           break;
         }
 
-        if (!CROW_IS_NUM(ch)) {
-          CROW_SET_ERRNO(HPE_INVALID_VERSION);
+        if (!KINGKONG_IS_NUM(ch)) {
+          KINGKONG_SET_ERRNO(HPE_INVALID_VERSION);
           goto error;
         }
 
@@ -1095,7 +1095,7 @@ static const int8_t unhex[256] =
         parser->http_major += ch - '0';
 
         if (parser->http_major > 999) {
-          CROW_SET_ERRNO(HPE_INVALID_VERSION);
+          KINGKONG_SET_ERRNO(HPE_INVALID_VERSION);
           goto error;
         }
 
@@ -1104,8 +1104,8 @@ static const int8_t unhex[256] =
 
       /* first digit of minor HTTP version */
       case s_res_first_http_minor:
-        if (!CROW_IS_NUM(ch)) {
-          CROW_SET_ERRNO(HPE_INVALID_VERSION);
+        if (!KINGKONG_IS_NUM(ch)) {
+          KINGKONG_SET_ERRNO(HPE_INVALID_VERSION);
           goto error;
         }
 
@@ -1121,8 +1121,8 @@ static const int8_t unhex[256] =
           break;
         }
 
-        if (!CROW_IS_NUM(ch)) {
-          CROW_SET_ERRNO(HPE_INVALID_VERSION);
+        if (!KINGKONG_IS_NUM(ch)) {
+          KINGKONG_SET_ERRNO(HPE_INVALID_VERSION);
           goto error;
         }
 
@@ -1130,7 +1130,7 @@ static const int8_t unhex[256] =
         parser->http_minor += ch - '0';
 
         if (parser->http_minor > 999) {
-          CROW_SET_ERRNO(HPE_INVALID_VERSION);
+          KINGKONG_SET_ERRNO(HPE_INVALID_VERSION);
           goto error;
         }
 
@@ -1139,12 +1139,12 @@ static const int8_t unhex[256] =
 
       case s_res_first_status_code:
       {
-        if (!CROW_IS_NUM(ch)) {
+        if (!KINGKONG_IS_NUM(ch)) {
           if (ch == ' ') {
             break;
           }
 
-          CROW_SET_ERRNO(HPE_INVALID_STATUS);
+          KINGKONG_SET_ERRNO(HPE_INVALID_STATUS);
           goto error;
         }
         parser->status_code = ch - '0';
@@ -1154,19 +1154,19 @@ static const int8_t unhex[256] =
 
       case s_res_status_code:
       {
-        if (!CROW_IS_NUM(ch)) {
+        if (!KINGKONG_IS_NUM(ch)) {
           switch (ch) {
             case ' ':
               parser->state = s_res_status_start;
               break;
-            case CROW_CR:
+            case KINGKONG_CR:
               parser->state = s_res_line_almost_done;
               break;
-            case CROW_LF:
+            case KINGKONG_LF:
               parser->state = s_header_field_start;
               break;
             default:
-              CROW_SET_ERRNO(HPE_INVALID_STATUS);
+              KINGKONG_SET_ERRNO(HPE_INVALID_STATUS);
               goto error;
           }
           break;
@@ -1176,7 +1176,7 @@ static const int8_t unhex[256] =
         parser->status_code += ch - '0';
 
         if (parser->status_code > 999) {
-          CROW_SET_ERRNO(HPE_INVALID_STATUS);
+          KINGKONG_SET_ERRNO(HPE_INVALID_STATUS);
           goto error;
         }
 
@@ -1185,51 +1185,51 @@ static const int8_t unhex[256] =
 
       case s_res_status_start:
       {
-        if (ch == CROW_CR) {
+        if (ch == KINGKONG_CR) {
           parser->state = s_res_line_almost_done;
           break;
         }
 
-        if (ch == CROW_LF) {
+        if (ch == KINGKONG_LF) {
           parser->state = s_header_field_start;
           break;
         }
 
-        CROW_MARK(status);
+        KINGKONG_MARK(status);
         parser->state = s_res_status;
         parser->index = 0;
         break;
       }
 
       case s_res_status:
-        if (ch == CROW_CR) {
+        if (ch == KINGKONG_CR) {
           parser->state = s_res_line_almost_done;
-          CROW_CALLBACK_DATA(status);
+          KINGKONG_CALLBACK_DATA(status);
           break;
         }
 
-        if (ch == CROW_LF) {
+        if (ch == KINGKONG_LF) {
           parser->state = s_header_field_start;
-          CROW_CALLBACK_DATA(status);
+          KINGKONG_CALLBACK_DATA(status);
           break;
         }
 
         break;
 
       case s_res_line_almost_done:
-        CROW_STRICT_CHECK(ch != CROW_LF);
+        KINGKONG_STRICT_CHECK(ch != KINGKONG_LF);
         parser->state = s_header_field_start;
         break;
 
       case s_start_req:
       {
-        if (ch == CROW_CR || ch == CROW_LF)
+        if (ch == KINGKONG_CR || ch == KINGKONG_LF)
           break;
         parser->flags = 0;
-        parser->content_length = CROW_ULLONG_MAX;
+        parser->content_length = KINGKONG_ULLONG_MAX;
 
-        if (!CROW_IS_ALPHA(ch)) {
-          CROW_SET_ERRNO(HPE_INVALID_METHOD);
+        if (!KINGKONG_IS_ALPHA(ch)) {
+          KINGKONG_SET_ERRNO(HPE_INVALID_METHOD);
           goto error;
         }
 
@@ -1250,12 +1250,12 @@ static const int8_t unhex[256] =
           case 'T': parser->method = HTTP_TRACE; break;
           case 'U': parser->method = HTTP_UNLOCK; /* or UNSUBSCRIBE */ break;
           default:
-            CROW_SET_ERRNO(HPE_INVALID_METHOD);
+            KINGKONG_SET_ERRNO(HPE_INVALID_METHOD);
             goto error;
         }
         parser->state = s_req_method;
 
-        CROW_CALLBACK_NOTIFY(message_begin);
+        KINGKONG_CALLBACK_NOTIFY(message_begin);
 
         break;
       }
@@ -1264,7 +1264,7 @@ static const int8_t unhex[256] =
       {
         const char *matcher;
         if (ch == '\0') {
-          CROW_SET_ERRNO(HPE_INVALID_METHOD);
+          KINGKONG_SET_ERRNO(HPE_INVALID_METHOD);
           goto error;
         }
 
@@ -1279,7 +1279,7 @@ static const int8_t unhex[256] =
           } else if (parser->index == 2  && ch == 'P') {
             parser->method = HTTP_COPY;
           } else {
-            CROW_SET_ERRNO(HPE_INVALID_METHOD);
+            KINGKONG_SET_ERRNO(HPE_INVALID_METHOD);
             goto error;
           }
         } else if (parser->method == HTTP_MKCOL) {
@@ -1294,14 +1294,14 @@ static const int8_t unhex[256] =
           } else if (parser->index == 3 && ch == 'A') {
             parser->method = HTTP_MKCALENDAR;
           } else {
-            CROW_SET_ERRNO(HPE_INVALID_METHOD);
+            KINGKONG_SET_ERRNO(HPE_INVALID_METHOD);
             goto error;
           }
         } else if (parser->method == HTTP_SUBSCRIBE) {
           if (parser->index == 1 && ch == 'E') {
             parser->method = HTTP_SEARCH;
           } else {
-            CROW_SET_ERRNO(HPE_INVALID_METHOD);
+            KINGKONG_SET_ERRNO(HPE_INVALID_METHOD);
             goto error;
           }
         } else if (parser->index == 1 && parser->method == HTTP_POST) {
@@ -1312,7 +1312,7 @@ static const int8_t unhex[256] =
           } else if (ch == 'A') {
             parser->method = HTTP_PATCH;
           } else {
-            CROW_SET_ERRNO(HPE_INVALID_METHOD);
+            KINGKONG_SET_ERRNO(HPE_INVALID_METHOD);
             goto error;
           }
         } else if (parser->index == 2) {
@@ -1320,24 +1320,24 @@ static const int8_t unhex[256] =
             if (ch == 'R') {
               parser->method = HTTP_PURGE;
             } else {
-              CROW_SET_ERRNO(HPE_INVALID_METHOD);
+              KINGKONG_SET_ERRNO(HPE_INVALID_METHOD);
               goto error;
             }
           } else if (parser->method == HTTP_UNLOCK) {
             if (ch == 'S') {
               parser->method = HTTP_UNSUBSCRIBE;
             } else {
-              CROW_SET_ERRNO(HPE_INVALID_METHOD);
+              KINGKONG_SET_ERRNO(HPE_INVALID_METHOD);
               goto error;
             }
           } else {
-            CROW_SET_ERRNO(HPE_INVALID_METHOD);
+            KINGKONG_SET_ERRNO(HPE_INVALID_METHOD);
             goto error;
           }
         } else if (parser->index == 4 && parser->method == HTTP_PROPFIND && ch == 'P') {
           parser->method = HTTP_PROPPATCH;
         } else {
-          CROW_SET_ERRNO(HPE_INVALID_METHOD);
+          KINGKONG_SET_ERRNO(HPE_INVALID_METHOD);
           goto error;
         }
 
@@ -1349,14 +1349,14 @@ static const int8_t unhex[256] =
       {
         if (ch == ' ') break;
 
-        CROW_MARK(url);
+        KINGKONG_MARK(url);
         if (parser->method == HTTP_CONNECT) {
           parser->state = s_req_server_start;
         }
 
         parser->state = parse_url_char(static_cast<state>(parser->state), ch);
         if (parser->state == s_dead) {
-          CROW_SET_ERRNO(HPE_INVALID_URL);
+          KINGKONG_SET_ERRNO(HPE_INVALID_URL);
           goto error;
         }
 
@@ -1371,14 +1371,14 @@ static const int8_t unhex[256] =
         switch (ch) {
           /* No whitespace allowed here */
           case ' ':
-          case CROW_CR:
-          case CROW_LF:
-            CROW_SET_ERRNO(HPE_INVALID_URL);
+          case KINGKONG_CR:
+          case KINGKONG_LF:
+            KINGKONG_SET_ERRNO(HPE_INVALID_URL);
             goto error;
           default:
             parser->state = parse_url_char(static_cast<state>(parser->state), ch);
             if (parser->state == s_dead) {
-              CROW_SET_ERRNO(HPE_INVALID_URL);
+              KINGKONG_SET_ERRNO(HPE_INVALID_URL);
               goto error;
             }
         }
@@ -1397,27 +1397,27 @@ static const int8_t unhex[256] =
         switch (ch) {
           case ' ':
             parser->state = s_req_http_start;
-            CROW_CALLBACK_DATA(url);
+            KINGKONG_CALLBACK_DATA(url);
             break;
-          case CROW_CR:
-          case CROW_LF:
+          case KINGKONG_CR:
+          case KINGKONG_LF:
             if (parser->method != HTTP_GET)
             {
                 parser->state = s_dead;
-                CROW_SET_ERRNO(HPE_INVALID_VERSION);
+                KINGKONG_SET_ERRNO(HPE_INVALID_VERSION);
                 goto error;
             }
             parser->http_major = 0;
             parser->http_minor = 9;
-            parser->state = (ch == CROW_CR) ?
+            parser->state = (ch == KINGKONG_CR) ?
               s_req_line_almost_done :
               s_header_field_start;
-            CROW_CALLBACK_DATA(url);
+            KINGKONG_CALLBACK_DATA(url);
             break;
           default:
             parser->state = parse_url_char(static_cast<state>(parser->state), ch);
             if (parser->state == s_dead) {
-              CROW_SET_ERRNO(HPE_INVALID_URL);
+              KINGKONG_SET_ERRNO(HPE_INVALID_URL);
               goto error;
             }
         }
@@ -1432,35 +1432,35 @@ static const int8_t unhex[256] =
           case ' ':
             break;
           default:
-            CROW_SET_ERRNO(HPE_INVALID_CONSTANT);
+            KINGKONG_SET_ERRNO(HPE_INVALID_CONSTANT);
             goto error;
         }
         break;
 
       case s_req_http_H:
-        CROW_STRICT_CHECK(ch != 'T');
+        KINGKONG_STRICT_CHECK(ch != 'T');
         parser->state = s_req_http_HT;
         break;
 
       case s_req_http_HT:
-        CROW_STRICT_CHECK(ch != 'T');
+        KINGKONG_STRICT_CHECK(ch != 'T');
         parser->state = s_req_http_HTT;
         break;
 
       case s_req_http_HTT:
-        CROW_STRICT_CHECK(ch != 'P');
+        KINGKONG_STRICT_CHECK(ch != 'P');
         parser->state = s_req_http_HTTP;
         break;
 
       case s_req_http_HTTP:
-        CROW_STRICT_CHECK(ch != '/');
+        KINGKONG_STRICT_CHECK(ch != '/');
         parser->state = s_req_first_http_major;
         break;
 
       /* first digit of major HTTP version */
       case s_req_first_http_major:
         if (ch < '1' || ch > '9') {
-          CROW_SET_ERRNO(HPE_INVALID_VERSION);
+          KINGKONG_SET_ERRNO(HPE_INVALID_VERSION);
           goto error;
         }
 
@@ -1476,8 +1476,8 @@ static const int8_t unhex[256] =
           break;
         }
 
-        if (!CROW_IS_NUM(ch)) {
-          CROW_SET_ERRNO(HPE_INVALID_VERSION);
+        if (!KINGKONG_IS_NUM(ch)) {
+          KINGKONG_SET_ERRNO(HPE_INVALID_VERSION);
           goto error;
         }
 
@@ -1485,7 +1485,7 @@ static const int8_t unhex[256] =
         parser->http_major += ch - '0';
 
         if (parser->http_major > 999) {
-          CROW_SET_ERRNO(HPE_INVALID_VERSION);
+          KINGKONG_SET_ERRNO(HPE_INVALID_VERSION);
           goto error;
         }
 
@@ -1494,8 +1494,8 @@ static const int8_t unhex[256] =
 
       /* first digit of minor HTTP version */
       case s_req_first_http_minor:
-        if (!CROW_IS_NUM(ch)) {
-          CROW_SET_ERRNO(HPE_INVALID_VERSION);
+        if (!KINGKONG_IS_NUM(ch)) {
+          KINGKONG_SET_ERRNO(HPE_INVALID_VERSION);
           goto error;
         }
 
@@ -1506,20 +1506,20 @@ static const int8_t unhex[256] =
       /* minor HTTP version or end of request line */
       case s_req_http_minor:
       {
-        if (ch == CROW_CR) {
+        if (ch == KINGKONG_CR) {
           parser->state = s_req_line_almost_done;
           break;
         }
 
-        if (ch == CROW_LF) {
+        if (ch == KINGKONG_LF) {
           parser->state = s_header_field_start;
           break;
         }
 
         /* XXX allow spaces after digit? */
 
-        if (!CROW_IS_NUM(ch)) {
-          CROW_SET_ERRNO(HPE_INVALID_VERSION);
+        if (!KINGKONG_IS_NUM(ch)) {
+          KINGKONG_SET_ERRNO(HPE_INVALID_VERSION);
           goto error;
         }
 
@@ -1527,7 +1527,7 @@ static const int8_t unhex[256] =
         parser->http_minor += ch - '0';
 
         if (parser->http_minor > 999) {
-          CROW_SET_ERRNO(HPE_INVALID_VERSION);
+          KINGKONG_SET_ERRNO(HPE_INVALID_VERSION);
           goto error;
         }
 
@@ -1537,8 +1537,8 @@ static const int8_t unhex[256] =
       /* end of request line */
       case s_req_line_almost_done:
       {
-        if (ch != CROW_LF) {
-          CROW_SET_ERRNO(HPE_LF_EXPECTED);
+        if (ch != KINGKONG_LF) {
+          KINGKONG_SET_ERRNO(HPE_LF_EXPECTED);
           goto error;
         }
 
@@ -1548,26 +1548,26 @@ static const int8_t unhex[256] =
 
       case s_header_field_start:
       {
-        if (ch == CROW_CR) {
+        if (ch == KINGKONG_CR) {
           parser->state = s_headers_almost_done;
           break;
         }
 
-        if (ch == CROW_LF) {
+        if (ch == KINGKONG_LF) {
           /* they might be just sending \n instead of \r\n so this would be
            * the second \n to denote the end of headers*/
           parser->state = s_headers_almost_done;
           goto reexecute_byte;
         }
 
-        c = CROW_TOKEN(ch);
+        c = KINGKONG_TOKEN(ch);
 
         if (!c) {
-          CROW_SET_ERRNO(HPE_INVALID_HEADER_TOKEN);
+          KINGKONG_SET_ERRNO(HPE_INVALID_HEADER_TOKEN);
           goto error;
         }
 
-        CROW_MARK(header_field);
+        KINGKONG_MARK(header_field);
 
         parser->index = 0;
         parser->state = s_header_field;
@@ -1598,7 +1598,7 @@ static const int8_t unhex[256] =
 
       case s_header_field:
       {
-        c = CROW_TOKEN(ch);
+        c = KINGKONG_TOKEN(ch);
 
         if (c) {
           switch (parser->header_state) {
@@ -1634,10 +1634,10 @@ static const int8_t unhex[256] =
 
             case h_matching_connection:
               parser->index++;
-              if (parser->index > sizeof(CROW_CONNECTION)-1
-                  || c != CROW_CONNECTION[parser->index]) {
+              if (parser->index > sizeof(KINGKONG_CONNECTION)-1
+                  || c != KINGKONG_CONNECTION[parser->index]) {
                 parser->header_state = h_general;
-              } else if (parser->index == sizeof(CROW_CONNECTION)-2) {
+              } else if (parser->index == sizeof(KINGKONG_CONNECTION)-2) {
                 parser->header_state = h_connection;
               }
               break;
@@ -1646,10 +1646,10 @@ static const int8_t unhex[256] =
 
             case h_matching_proxy_connection:
               parser->index++;
-              if (parser->index > sizeof(CROW_PROXY_CONNECTION)-1
-                  || c != CROW_PROXY_CONNECTION[parser->index]) {
+              if (parser->index > sizeof(KINGKONG_PROXY_CONNECTION)-1
+                  || c != KINGKONG_PROXY_CONNECTION[parser->index]) {
                 parser->header_state = h_general;
-              } else if (parser->index == sizeof(CROW_PROXY_CONNECTION)-2) {
+              } else if (parser->index == sizeof(KINGKONG_PROXY_CONNECTION)-2) {
                 parser->header_state = h_connection;
               }
               break;
@@ -1658,10 +1658,10 @@ static const int8_t unhex[256] =
 
             case h_matching_content_length:
               parser->index++;
-              if (parser->index > sizeof(CROW_CONTENT_LENGTH)-1
-                  || c != CROW_CONTENT_LENGTH[parser->index]) {
+              if (parser->index > sizeof(KINGKONG_CONTENT_LENGTH)-1
+                  || c != KINGKONG_CONTENT_LENGTH[parser->index]) {
                 parser->header_state = h_general;
-              } else if (parser->index == sizeof(CROW_CONTENT_LENGTH)-2) {
+              } else if (parser->index == sizeof(KINGKONG_CONTENT_LENGTH)-2) {
                 parser->header_state = h_content_length;
               }
               break;
@@ -1670,10 +1670,10 @@ static const int8_t unhex[256] =
 
             case h_matching_transfer_encoding:
               parser->index++;
-              if (parser->index > sizeof(CROW_TRANSFER_ENCODING)-1
-                  || c != CROW_TRANSFER_ENCODING[parser->index]) {
+              if (parser->index > sizeof(KINGKONG_TRANSFER_ENCODING)-1
+                  || c != KINGKONG_TRANSFER_ENCODING[parser->index]) {
                 parser->header_state = h_general;
-              } else if (parser->index == sizeof(CROW_TRANSFER_ENCODING)-2) {
+              } else if (parser->index == sizeof(KINGKONG_TRANSFER_ENCODING)-2) {
                 parser->header_state = h_transfer_encoding;
               }
               break;
@@ -1682,10 +1682,10 @@ static const int8_t unhex[256] =
 
             case h_matching_upgrade:
               parser->index++;
-              if (parser->index > sizeof(CROW_UPGRADE)-1
-                  || c != CROW_UPGRADE[parser->index]) {
+              if (parser->index > sizeof(KINGKONG_UPGRADE)-1
+                  || c != KINGKONG_UPGRADE[parser->index]) {
                 parser->header_state = h_general;
-              } else if (parser->index == sizeof(CROW_UPGRADE)-2) {
+              } else if (parser->index == sizeof(KINGKONG_UPGRADE)-2) {
                 parser->header_state = h_upgrade;
               }
               break;
@@ -1706,35 +1706,35 @@ static const int8_t unhex[256] =
 
         if (ch == ':') {
           parser->state = s_header_value_discard_ws;
-          CROW_CALLBACK_DATA(header_field);
+          KINGKONG_CALLBACK_DATA(header_field);
           break;
         }
 
-        if (ch == CROW_CR) {
+        if (ch == KINGKONG_CR) {
           parser->state = s_header_almost_done;
-          CROW_CALLBACK_DATA(header_field);
+          KINGKONG_CALLBACK_DATA(header_field);
           break;
         }
 
-        if (ch == CROW_LF) {
+        if (ch == KINGKONG_LF) {
           parser->state = s_header_field_start;
-          CROW_CALLBACK_DATA(header_field);
+          KINGKONG_CALLBACK_DATA(header_field);
           break;
         }
 
-        CROW_SET_ERRNO(HPE_INVALID_HEADER_TOKEN);
+        KINGKONG_SET_ERRNO(HPE_INVALID_HEADER_TOKEN);
         goto error;
       }
 
       case s_header_value_discard_ws:
         if (ch == ' ' || ch == '\t') break;
 
-        if (ch == CROW_CR) {
+        if (ch == KINGKONG_CR) {
           parser->state = s_header_value_discard_ws_almost_done;
           break;
         }
 
-        if (ch == CROW_LF) {
+        if (ch == KINGKONG_LF) {
           parser->state = s_header_value_discard_lws;
           break;
         }
@@ -1743,12 +1743,12 @@ static const int8_t unhex[256] =
 
       case s_header_value_start:
       {
-        CROW_MARK(header_value);
+        KINGKONG_MARK(header_value);
 
         parser->state = s_header_value;
         parser->index = 0;
 
-        c = CROW_LOWER(ch);
+        c = KINGKONG_LOWER(ch);
 
         switch (parser->header_state) {
           case h_upgrade:
@@ -1766,8 +1766,8 @@ static const int8_t unhex[256] =
             break;
 
           case h_content_length:
-            if (!CROW_IS_NUM(ch)) {
-              CROW_SET_ERRNO(HPE_INVALID_CONTENT_LENGTH);
+            if (!KINGKONG_IS_NUM(ch)) {
+              KINGKONG_SET_ERRNO(HPE_INVALID_CONTENT_LENGTH);
               goto error;
             }
 
@@ -1796,19 +1796,19 @@ static const int8_t unhex[256] =
       case s_header_value:
       {
 
-        if (ch == CROW_CR) {
+        if (ch == KINGKONG_CR) {
           parser->state = s_header_almost_done;
-          CROW_CALLBACK_DATA(header_value);
+          KINGKONG_CALLBACK_DATA(header_value);
           break;
         }
 
-        if (ch == CROW_LF) {
+        if (ch == KINGKONG_LF) {
           parser->state = s_header_almost_done;
-          CROW_CALLBACK_DATA_NOADVANCE(header_value);
+          KINGKONG_CALLBACK_DATA_NOADVANCE(header_value);
           goto reexecute_byte;
         }
 
-        c = CROW_LOWER(ch);
+        c = KINGKONG_LOWER(ch);
 
         switch (parser->header_state) {
           case h_general:
@@ -1825,8 +1825,8 @@ static const int8_t unhex[256] =
 
             if (ch == ' ') break;
 
-            if (!CROW_IS_NUM(ch)) {
-              CROW_SET_ERRNO(HPE_INVALID_CONTENT_LENGTH);
+            if (!KINGKONG_IS_NUM(ch)) {
+              KINGKONG_SET_ERRNO(HPE_INVALID_CONTENT_LENGTH);
               goto error;
             }
 
@@ -1835,8 +1835,8 @@ static const int8_t unhex[256] =
             t += ch - '0';
 
             /* Overflow? Test against a conservative limit for simplicity. */
-            if ((CROW_ULLONG_MAX - 10) / 10 < parser->content_length) {
-              CROW_SET_ERRNO(HPE_INVALID_CONTENT_LENGTH);
+            if ((KINGKONG_ULLONG_MAX - 10) / 10 < parser->content_length) {
+              KINGKONG_SET_ERRNO(HPE_INVALID_CONTENT_LENGTH);
               goto error;
             }
 
@@ -1847,10 +1847,10 @@ static const int8_t unhex[256] =
           /* Transfer-Encoding: chunked */
           case h_matching_transfer_encoding_chunked:
             parser->index++;
-            if (parser->index > sizeof(CROW_CHUNKED)-1
-                || c != CROW_CHUNKED[parser->index]) {
+            if (parser->index > sizeof(KINGKONG_CHUNKED)-1
+                || c != KINGKONG_CHUNKED[parser->index]) {
               parser->header_state = h_general;
-            } else if (parser->index == sizeof(CROW_CHUNKED)-2) {
+            } else if (parser->index == sizeof(KINGKONG_CHUNKED)-2) {
               parser->header_state = h_transfer_encoding_chunked;
             }
             break;
@@ -1858,10 +1858,10 @@ static const int8_t unhex[256] =
           /* looking for 'Connection: keep-alive' */
           case h_matching_connection_keep_alive:
             parser->index++;
-            if (parser->index > sizeof(CROW_KEEP_ALIVE)-1
-                || c != CROW_KEEP_ALIVE[parser->index]) {
+            if (parser->index > sizeof(KINGKONG_KEEP_ALIVE)-1
+                || c != KINGKONG_KEEP_ALIVE[parser->index]) {
               parser->header_state = h_general;
-            } else if (parser->index == sizeof(CROW_KEEP_ALIVE)-2) {
+            } else if (parser->index == sizeof(KINGKONG_KEEP_ALIVE)-2) {
               parser->header_state = h_connection_keep_alive;
             }
             break;
@@ -1869,9 +1869,9 @@ static const int8_t unhex[256] =
           /* looking for 'Connection: close' */
           case h_matching_connection_close:
             parser->index++;
-            if (parser->index > sizeof(CROW_CLOSE)-1 || c != CROW_CLOSE[parser->index]) {
+            if (parser->index > sizeof(KINGKONG_CLOSE)-1 || c != KINGKONG_CLOSE[parser->index]) {
               parser->header_state = h_general;
-            } else if (parser->index == sizeof(CROW_CLOSE)-2) {
+            } else if (parser->index == sizeof(KINGKONG_CLOSE)-2) {
               parser->header_state = h_connection_close;
             }
             break;
@@ -1892,7 +1892,7 @@ static const int8_t unhex[256] =
 
       case s_header_almost_done:
       {
-        CROW_STRICT_CHECK(ch != CROW_LF);
+        KINGKONG_STRICT_CHECK(ch != KINGKONG_LF);
 
         parser->state = s_header_value_lws;
         break;
@@ -1926,7 +1926,7 @@ static const int8_t unhex[256] =
 
       case s_header_value_discard_ws_almost_done:
       {
-        CROW_STRICT_CHECK(ch != CROW_LF);
+        KINGKONG_STRICT_CHECK(ch != KINGKONG_LF);
         parser->state = s_header_value_discard_lws;
         break;
       }
@@ -1938,21 +1938,21 @@ static const int8_t unhex[256] =
           break;
         } else {
           /* header value was empty */
-          CROW_MARK(header_value);
+          KINGKONG_MARK(header_value);
           parser->state = s_header_field_start;
-          CROW_CALLBACK_DATA_NOADVANCE(header_value);
+          KINGKONG_CALLBACK_DATA_NOADVANCE(header_value);
           goto reexecute_byte;
         }
       }
 
       case s_headers_almost_done:
       {
-        CROW_STRICT_CHECK(ch != CROW_LF);
+        KINGKONG_STRICT_CHECK(ch != KINGKONG_LF);
 
         if (parser->flags & F_TRAILING) {
           /* End of a chunked request */
-          parser->state = CROW_NEW_MESSAGE();
-          CROW_CALLBACK_NOTIFY(message_complete);
+          parser->state = KINGKONG_NEW_MESSAGE();
+          KINGKONG_CALLBACK_NOTIFY(message_complete);
           break;
         }
 
@@ -1968,7 +1968,7 @@ static const int8_t unhex[256] =
          * is needed for the annoying case of recieving a response to a HEAD
          * request.
          *
-         * We'd like to use CROW_CALLBACK_NOTIFY_NOADVANCE() here but we cannot, so
+         * We'd like to use KINGKONG_CALLBACK_NOTIFY_NOADVANCE() here but we cannot, so
          * we have to simulate it by handling a change in errno below.
          */
         if (settings->on_headers_complete) {
@@ -1981,12 +1981,12 @@ static const int8_t unhex[256] =
               break;
 
             default:
-              CROW_SET_ERRNO(HPE_CB_headers_complete);
+              KINGKONG_SET_ERRNO(HPE_CB_headers_complete);
               return p - data; /* Error */
           }
         }
 
-        if (CROW_HTTP_PARSER_ERRNO(parser) != HPE_OK) {
+        if (KINGKONG_HTTP_PARSER_ERRNO(parser) != HPE_OK) {
           return p - data;
         }
 
@@ -1995,37 +1995,37 @@ static const int8_t unhex[256] =
 
       case s_headers_done:
       {
-        CROW_STRICT_CHECK(ch != CROW_LF);
+        KINGKONG_STRICT_CHECK(ch != KINGKONG_LF);
 
         parser->nread = 0;
 
         /* Exit, the rest of the connect is in a different protocol. */
         if (parser->upgrade) {
-          parser->state = CROW_NEW_MESSAGE();
-          CROW_CALLBACK_NOTIFY(message_complete);
+          parser->state = KINGKONG_NEW_MESSAGE();
+          KINGKONG_CALLBACK_NOTIFY(message_complete);
           return (p - data) + 1;
         }
 
         if (parser->flags & F_SKIPBODY) {
-          parser->state = CROW_NEW_MESSAGE();
-          CROW_CALLBACK_NOTIFY(message_complete);
+          parser->state = KINGKONG_NEW_MESSAGE();
+          KINGKONG_CALLBACK_NOTIFY(message_complete);
         } else if (parser->flags & F_CHUNKED) {
           /* chunked encoding - ignore Content-Length header */
           parser->state = s_chunk_size_start;
         } else {
           if (parser->content_length == 0) {
             /* Content-Length header given but zero: Content-Length: 0\r\n */
-            parser->state = CROW_NEW_MESSAGE();
-            CROW_CALLBACK_NOTIFY(message_complete);
-          } else if (parser->content_length != CROW_ULLONG_MAX) {
+            parser->state = KINGKONG_NEW_MESSAGE();
+            KINGKONG_CALLBACK_NOTIFY(message_complete);
+          } else if (parser->content_length != KINGKONG_ULLONG_MAX) {
             /* Content-Length header given and non-zero */
             parser->state = s_body_identity;
           } else {
             if (parser->type == HTTP_REQUEST ||
                 !http_message_needs_eof(parser)) {
               /* Assume content-length 0 - read the next */
-              parser->state = CROW_NEW_MESSAGE();
-              CROW_CALLBACK_NOTIFY(message_complete);
+              parser->state = KINGKONG_NEW_MESSAGE();
+              KINGKONG_CALLBACK_NOTIFY(message_complete);
             } else {
               /* Read body until EOF */
               parser->state = s_body_identity_eof;
@@ -2038,25 +2038,25 @@ static const int8_t unhex[256] =
 
       case s_body_identity:
       {
-        uint64_t to_read = CROW_MIN(parser->content_length,
+        uint64_t to_read = KINGKONG_MIN(parser->content_length,
                                (uint64_t) ((data + len) - p));
 
         assert(parser->content_length != 0
-            && parser->content_length != CROW_ULLONG_MAX);
+            && parser->content_length != KINGKONG_ULLONG_MAX);
 
         /* The difference between advancing content_length and p is because
          * the latter will automaticaly advance on the next loop iteration.
          * Further, if content_length ends up at 0, we want to see the last
          * byte again for our message complete callback.
          */
-        CROW_MARK(body);
+        KINGKONG_MARK(body);
         parser->content_length -= to_read;
         p += to_read - 1;
 
         if (parser->content_length == 0) {
           parser->state = s_message_done;
 
-          /* Mimic CROW_CALLBACK_DATA_NOADVANCE() but with one extra byte.
+          /* Mimic KINGKONG_CALLBACK_DATA_NOADVANCE() but with one extra byte.
            *
            * The alternative to doing this is to wait for the next byte to
            * trigger the data callback, just as in every other case. The
@@ -2065,7 +2065,7 @@ static const int8_t unhex[256] =
            * complete-on-length. It's not clear that this distinction is
            * important for applications, but let's keep it for now.
            */
-          CROW_CALLBACK_DATA_(body, p - body_mark + 1, p - data);
+          KINGKONG_CALLBACK_DATA_(body, p - body_mark + 1, p - data);
           goto reexecute_byte;
         }
 
@@ -2074,14 +2074,14 @@ static const int8_t unhex[256] =
 
       /* read until EOF */
       case s_body_identity_eof:
-        CROW_MARK(body);
+        KINGKONG_MARK(body);
         p = data + len - 1;
 
         break;
 
       case s_message_done:
-        parser->state = CROW_NEW_MESSAGE();
-        CROW_CALLBACK_NOTIFY(message_complete);
+        parser->state = KINGKONG_NEW_MESSAGE();
+        KINGKONG_CALLBACK_NOTIFY(message_complete);
         break;
 
       case s_chunk_size_start:
@@ -2091,7 +2091,7 @@ static const int8_t unhex[256] =
 
         unhex_val = unhex[static_cast<unsigned char>(ch)];
         if (unhex_val == -1) {
-          CROW_SET_ERRNO(HPE_INVALID_CHUNK_SIZE);
+          KINGKONG_SET_ERRNO(HPE_INVALID_CHUNK_SIZE);
           goto error;
         }
 
@@ -2106,7 +2106,7 @@ static const int8_t unhex[256] =
 
         assert(parser->flags & F_CHUNKED);
 
-        if (ch == CROW_CR) {
+        if (ch == KINGKONG_CR) {
           parser->state = s_chunk_size_almost_done;
           break;
         }
@@ -2119,7 +2119,7 @@ static const int8_t unhex[256] =
             break;
           }
 
-          CROW_SET_ERRNO(HPE_INVALID_CHUNK_SIZE);
+          KINGKONG_SET_ERRNO(HPE_INVALID_CHUNK_SIZE);
           goto error;
         }
 
@@ -2128,8 +2128,8 @@ static const int8_t unhex[256] =
         t += unhex_val;
 
         /* Overflow? Test against a conservative limit for simplicity. */
-        if ((CROW_ULLONG_MAX - 16) / 16 < parser->content_length) {
-          CROW_SET_ERRNO(HPE_INVALID_CONTENT_LENGTH);
+        if ((KINGKONG_ULLONG_MAX - 16) / 16 < parser->content_length) {
+          KINGKONG_SET_ERRNO(HPE_INVALID_CONTENT_LENGTH);
           goto error;
         }
 
@@ -2141,7 +2141,7 @@ static const int8_t unhex[256] =
       {
         assert(parser->flags & F_CHUNKED);
         /* just ignore this shit. TODO check for overflow */
-        if (ch == CROW_CR) {
+        if (ch == KINGKONG_CR) {
           parser->state = s_chunk_size_almost_done;
           break;
         }
@@ -2151,7 +2151,7 @@ static const int8_t unhex[256] =
       case s_chunk_size_almost_done:
       {
         assert(parser->flags & F_CHUNKED);
-        CROW_STRICT_CHECK(ch != CROW_LF);
+        KINGKONG_STRICT_CHECK(ch != KINGKONG_LF);
 
         parser->nread = 0;
 
@@ -2166,17 +2166,17 @@ static const int8_t unhex[256] =
 
       case s_chunk_data:
       {
-        uint64_t to_read = CROW_MIN(parser->content_length,
+        uint64_t to_read = KINGKONG_MIN(parser->content_length,
                                (uint64_t) ((data + len) - p));
 
         assert(parser->flags & F_CHUNKED);
         assert(parser->content_length != 0
-            && parser->content_length != CROW_ULLONG_MAX);
+            && parser->content_length != KINGKONG_ULLONG_MAX);
 
         /* See the explanation in s_body_identity for why the content
          * length and data pointers are managed this way.
          */
-        CROW_MARK(body);
+        KINGKONG_MARK(body);
         parser->content_length -= to_read;
         p += to_read - 1;
 
@@ -2190,21 +2190,21 @@ static const int8_t unhex[256] =
       case s_chunk_data_almost_done:
         assert(parser->flags & F_CHUNKED);
         assert(parser->content_length == 0);
-        CROW_STRICT_CHECK(ch != CROW_CR);
+        KINGKONG_STRICT_CHECK(ch != KINGKONG_CR);
         parser->state = s_chunk_data_done;
-        CROW_CALLBACK_DATA(body);
+        KINGKONG_CALLBACK_DATA(body);
         break;
 
       case s_chunk_data_done:
         assert(parser->flags & F_CHUNKED);
-        CROW_STRICT_CHECK(ch != CROW_LF);
+        KINGKONG_STRICT_CHECK(ch != KINGKONG_LF);
         parser->nread = 0;
         parser->state = s_chunk_size_start;
         break;
 
       default:
         assert(0 && "unhandled state");
-        CROW_SET_ERRNO(HPE_INVALID_INTERNAL_STATE);
+        KINGKONG_SET_ERRNO(HPE_INVALID_INTERNAL_STATE);
         goto error;
     }
   }
@@ -2215,7 +2215,7 @@ static const int8_t unhex[256] =
    *
    * We use the NOADVANCE() variety of callbacks here because 'p' has already
    * overflowed 'data' and this allows us to correct for the off-by-one that
-   * we'd otherwise have (since CROW_CALLBACK_DATA() is meant to be run with a 'p'
+   * we'd otherwise have (since KINGKONG_CALLBACK_DATA() is meant to be run with a 'p'
    * value that's in-bounds).
    */
 
@@ -2225,17 +2225,17 @@ static const int8_t unhex[256] =
           (body_mark ? 1 : 0) +
           (status_mark ? 1 : 0)) <= 1);
 
-  CROW_CALLBACK_DATA_NOADVANCE(header_field);
-  CROW_CALLBACK_DATA_NOADVANCE(header_value);
-  CROW_CALLBACK_DATA_NOADVANCE(url);
-  CROW_CALLBACK_DATA_NOADVANCE(body);
-  CROW_CALLBACK_DATA_NOADVANCE(status);
+  KINGKONG_CALLBACK_DATA_NOADVANCE(header_field);
+  KINGKONG_CALLBACK_DATA_NOADVANCE(header_value);
+  KINGKONG_CALLBACK_DATA_NOADVANCE(url);
+  KINGKONG_CALLBACK_DATA_NOADVANCE(body);
+  KINGKONG_CALLBACK_DATA_NOADVANCE(status);
 
   return len;
 
 error:
-  if (CROW_HTTP_PARSER_ERRNO(parser) == HPE_OK) {
-    CROW_SET_ERRNO(HPE_UNKNOWN);
+  if (KINGKONG_HTTP_PARSER_ERRNO(parser) == HPE_OK) {
+    KINGKONG_SET_ERRNO(HPE_UNKNOWN);
   }
 
   return (p - data);
@@ -2258,7 +2258,7 @@ http_message_needs_eof (const http_parser *parser)
     return 0;
   }
 
-  if ((parser->flags & F_CHUNKED) || parser->content_length != CROW_ULLONG_MAX) {
+  if ((parser->flags & F_CHUNKED) || parser->content_length != KINGKONG_ULLONG_MAX) {
     return 0;
   }
 
@@ -2290,11 +2290,11 @@ http_method_str (enum http_method m)
 {
 static const char *method_strings[] =
   {
-#define CROW_XX(num, name, string) #string,
-  CROW_HTTP_METHOD_MAP(CROW_XX)
-#undef CROW_XX
+#define KINGKONG_XX(num, name, string) #string,
+  KINGKONG_HTTP_METHOD_MAP(KINGKONG_XX)
+#undef KINGKONG_XX
   };
-  return CROW_ELEM_AT(method_strings, m, "<unknown>");
+  return KINGKONG_ELEM_AT(method_strings, m, "<unknown>");
 }
 
 
@@ -2312,14 +2312,14 @@ http_parser_init (http_parser *parser, enum http_parser_type t)
 inline const char *
 http_errno_name(enum http_errno err) {
 /* Map errno values to strings for human-readable output */
-#define CROW_HTTP_STRERROR_GEN(n, s) { "HPE_" #n, s },
+#define KINGKONG_HTTP_STRERROR_GEN(n, s) { "HPE_" #n, s },
 static struct {
   const char *name;
   const char *description;
 } http_strerror_tab[] = {
-  CROW_HTTP_ERRNO_MAP(CROW_HTTP_STRERROR_GEN)
+  KINGKONG_HTTP_ERRNO_MAP(KINGKONG_HTTP_STRERROR_GEN)
 };
-#undef CROW_HTTP_STRERROR_GEN
+#undef KINGKONG_HTTP_STRERROR_GEN
   assert(err < (sizeof(http_strerror_tab)/sizeof(http_strerror_tab[0])));
   return http_strerror_tab[err].name;
 }
@@ -2327,14 +2327,14 @@ static struct {
 inline const char *
 http_errno_description(enum http_errno err) {
 /* Map errno values to strings for human-readable output */
-#define CROW_HTTP_STRERROR_GEN(n, s) { "HPE_" #n, s },
+#define KINGKONG_HTTP_STRERROR_GEN(n, s) { "HPE_" #n, s },
 static struct {
   const char *name;
   const char *description;
 } http_strerror_tab[] = {
-  CROW_HTTP_ERRNO_MAP(CROW_HTTP_STRERROR_GEN)
+  KINGKONG_HTTP_ERRNO_MAP(KINGKONG_HTTP_STRERROR_GEN)
 };
-#undef CROW_HTTP_STRERROR_GEN
+#undef KINGKONG_HTTP_STRERROR_GEN
   assert(err < (sizeof(http_strerror_tab)/sizeof(http_strerror_tab[0])));
   return http_strerror_tab[err].description;
 }
@@ -2348,7 +2348,7 @@ http_parse_host_char(enum http_host_state s, const char ch) {
         return s_http_host_start;
       }
 
-      if (CROW_IS_USERINFO_CHAR(ch)) {
+      if (KINGKONG_IS_USERINFO_CHAR(ch)) {
         return s_http_userinfo;
       }
       break;
@@ -2358,14 +2358,14 @@ http_parse_host_char(enum http_host_state s, const char ch) {
         return s_http_host_v6_start;
       }
 
-      if (CROW_IS_HOST_CHAR(ch)) {
+      if (KINGKONG_IS_HOST_CHAR(ch)) {
         return s_http_host;
       }
 
       break;
 
     case s_http_host:
-      if (CROW_IS_HOST_CHAR(ch)) {
+      if (KINGKONG_IS_HOST_CHAR(ch)) {
         return s_http_host;
       }
 
@@ -2384,7 +2384,7 @@ http_parse_host_char(enum http_host_state s, const char ch) {
 
     /* FALLTHROUGH */
     case s_http_host_v6_start:
-      if (CROW_IS_HEX(ch) || ch == ':' || ch == '.') {
+      if (KINGKONG_IS_HEX(ch) || ch == ':' || ch == '.') {
         return s_http_host_v6;
       }
 
@@ -2392,7 +2392,7 @@ http_parse_host_char(enum http_host_state s, const char ch) {
 
     case s_http_host_port:
     case s_http_host_port_start:
-      if (CROW_IS_NUM(ch)) {
+      if (KINGKONG_IS_NUM(ch)) {
         return s_http_host_port;
       }
 
@@ -2582,9 +2582,9 @@ http_parser_pause(http_parser *parser, int paused) {
    * state. In non-debug builds, there's not much that we can do about this
    * other than ignore it.
    */
-  if (CROW_HTTP_PARSER_ERRNO(parser) == HPE_OK ||
-      CROW_HTTP_PARSER_ERRNO(parser) == HPE_PAUSED) {
-    CROW_SET_ERRNO((paused) ? HPE_PAUSED : HPE_OK);
+  if (KINGKONG_HTTP_PARSER_ERRNO(parser) == HPE_OK ||
+      KINGKONG_HTTP_PARSER_ERRNO(parser) == HPE_PAUSED) {
+    KINGKONG_SET_ERRNO((paused) ? HPE_PAUSED : HPE_OK);
   } else {
     assert(0 && "Attempting to pause parser in error state");
   }
@@ -2597,45 +2597,45 @@ http_body_is_final(const struct http_parser *parser) {
 
 inline unsigned long
 http_parser_version(void) {
-  return CROW_HTTP_PARSER_VERSION_MAJOR * 0x10000 |
-         CROW_HTTP_PARSER_VERSION_MINOR * 0x00100 |
-         CROW_HTTP_PARSER_VERSION_PATCH * 0x00001;
+  return KINGKONG_HTTP_PARSER_VERSION_MAJOR * 0x10000 |
+         KINGKONG_HTTP_PARSER_VERSION_MINOR * 0x00100 |
+         KINGKONG_HTTP_PARSER_VERSION_PATCH * 0x00001;
 }
 
-#undef CROW_HTTP_METHOD_MAP
-#undef CROW_HTTP_ERRNO_MAP
-#undef CROW_SET_ERRNO
-#undef CROW_CALLBACK_NOTIFY_
-#undef CROW_CALLBACK_NOTIFY
-#undef CROW_CALLBACK_NOTIFY_NOADVANCE
-#undef CROW_CALLBACK_DATA_
-#undef CROW_CALLBACK_DATA
-#undef CROW_CALLBACK_DATA_NOADVANCE
-#undef CROW_MARK
-#undef CROW_PROXY_CONNECTION
-#undef CROW_CONNECTION
-#undef CROW_CONTENT_LENGTH
-#undef CROW_TRANSFER_ENCODING
-#undef CROW_UPGRADE
-#undef CROW_CHUNKED
-#undef CROW_KEEP_ALIVE
-#undef CROW_CLOSE
-#undef CROW_PARSING_HEADER
-#undef CROW_CR
-#undef CROW_LF
-#undef CROW_LOWER
-#undef CROW_IS_ALPHA
-#undef CROW_IS_NUM
-#undef CROW_IS_ALPHANUM
-#undef CROW_IS_HEX
-#undef CROW_IS_MARK
-#undef CROW_IS_USERINFO_CHAR
-#undef CROW_TOKEN
-#undef CROW_IS_URL_CHAR
-#undef CROW_IS_HOST_CHAR
-#undef CROW_start_state
-#undef CROW_STRICT_CHECK
-#undef CROW_NEW_MESSAGE
+#undef KINGKONG_HTTP_METHOD_MAP
+#undef KINGKONG_HTTP_ERRNO_MAP
+#undef KINGKONG_SET_ERRNO
+#undef KINGKONG_CALLBACK_NOTIFY_
+#undef KINGKONG_CALLBACK_NOTIFY
+#undef KINGKONG_CALLBACK_NOTIFY_NOADVANCE
+#undef KINGKONG_CALLBACK_DATA_
+#undef KINGKONG_CALLBACK_DATA
+#undef KINGKONG_CALLBACK_DATA_NOADVANCE
+#undef KINGKONG_MARK
+#undef KINGKONG_PROXY_CONNECTION
+#undef KINGKONG_CONNECTION
+#undef KINGKONG_CONTENT_LENGTH
+#undef KINGKONG_TRANSFER_ENCODING
+#undef KINGKONG_UPGRADE
+#undef KINGKONG_CHUNKED
+#undef KINGKONG_KEEP_ALIVE
+#undef KINGKONG_CLOSE
+#undef KINGKONG_PARSING_HEADER
+#undef KINGKONG_CR
+#undef KINGKONG_LF
+#undef KINGKONG_LOWER
+#undef KINGKONG_IS_ALPHA
+#undef KINGKONG_IS_NUM
+#undef KINGKONG_IS_ALPHANUM
+#undef KINGKONG_IS_HEX
+#undef KINGKONG_IS_MARK
+#undef KINGKONG_IS_USERINFO_CHAR
+#undef KINGKONG_TOKEN
+#undef KINGKONG_IS_URL_CHAR
+#undef KINGKONG_IS_HOST_CHAR
+#undef KINGKONG_start_state
+#undef KINGKONG_STRICT_CHECK
+#undef KINGKONG_NEW_MESSAGE
 
 #ifdef __cplusplus
 }
