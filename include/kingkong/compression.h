@@ -1,3 +1,4 @@
+#ifndef KINGKONG_ENAHLE_COMPRESSION
 #pragma once
 
 #include <string>
@@ -46,3 +47,4 @@ namespace kingkong {
         }
     }
 }
+#endif
