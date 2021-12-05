@@ -1,14 +1,17 @@
 #pragma once
 
+/* includes */
 #include "kingkong/utility.h"
 #include "kingkong/http_request.h"
 #include "kingkong/http_response.h"
 
+/**
+ * @brief middleware context 
+ * 
+ */
 namespace kingkong {
     namespace detail
     {
-
-
         template<typename... Middlewares>
         struct partial_context : public magic::pop_back<Middlewares...>::template rebind<partial_context>, public magic::last_element_type<Middlewares...>::type::context
         {
@@ -23,16 +26,12 @@ namespace kingkong {
             }
         };
 
-
-
         template<>
         struct partial_context<>
         {
             template<int>
             using partial = partial_context;
         };
-
-
 
         template<int N, typename Context, typename Container, typename CurrentMW, typename... Middlewares>
         bool middleware_call_helper(Container& middlewares, request& req, response& res, Context& ctx);
