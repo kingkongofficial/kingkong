@@ -112,5 +112,27 @@ namespace kingkong {
         {
             mw.after_handle(req, res, ctx.template get<MW>());
         }
+
+        template<int N, typename Context, typename Container, typename CurrentMW, typename... Middlewares>
+        bool middleware_call_helper(Container& middlewares, request& req, response& res, Context& ctx)
+        {
+            using parent_context_t = typename Context::template partial<N - 1>;
+            before_handler_call<CurrentMW, Context, parent_context_t>(std::get<N>(middlewares), req, res, ctx, static_cast<parent_context_t&>(ctx));
+
+            if (res.is_completed())
+            {
+                after_handler_call<CurrentMW, Context, parent_context_t>(std::get<N>(middlewares), req, res, ctx, static_cast<parent_context_t&>(ctx));
+                return true;
+            }
+
+            if (middleware_call_helper<N + 1, Context, Container, Middlewares...>(middlewares, req, res, ctx))
+            {
+                after_handler_call<CurrentMW, Context, parent_context_t>(std::get<N>(middlewares), req, res, ctx, static_cast<parent_context_t&>(ctx));
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }
