@@ -8,7 +8,7 @@ King Kong Web Framework
 
 ## Tutorials:
 - intrested in kingkong??
-- check out the learn kingkong [guide]()
+- check out the learn kingkong [guide](https://github.com/kingkongofficial/kingkong/blob/main/docs/learnkingkong.md)
 
 ## Contribution:
 - kingkong is an open source project you can contribute to it :)
