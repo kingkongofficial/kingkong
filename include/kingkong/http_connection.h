@@ -168,5 +168,18 @@ namespace kingkong {
     static std::atomic<int> connectionCount;
 #endif
 
+    template <typename Adaptor, typename Handler, typename... Middlewares>
+    class Connection {
+        friend struct kingkong::response;
+
+    public:
+        Connection(
+            boost::asio::io_service& io_service,
+            Handler* handler,
+            const std::string& server_name,
+            std::tuple<Middlewares...>* middlewares
+        )
+    }
+
     }
 }
