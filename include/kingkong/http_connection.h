@@ -53,5 +53,36 @@ namespace kingkong {
             {};
         };
 
+        template<typename T>
+        struct is_before_handle_arity_3_impl
+        {
+            template<typename C>
+            static std::true_type f(typename check_before_handle_arity_3_const<T>::template get<C>*);
+
+            template<typename C>
+            static std::true_type f(typename check_before_handle_arity_3<T>::template get<C>*);
+
+            template<typename C>
+            static std::false_type f(...);
+
+        public:
+            static const bool value = decltype(f<T>(nullptr))::value;
+        };
+
+        template<typename T>
+        struct is_after_handle_arity_3_impl
+        {
+            template<typename C>
+            static std::true_type f(typename check_after_handle_arity_3_const<T>::template get<C>*);
+
+            template<typename C>
+            static std::true_type f(typename check_after_handle_arity_3<T>::template get<C>*);
+
+            template<typename C>
+            static std::false_type f(...);
+
+        public:
+            static const bool value = decltype(f<T>(nullptr))::value;
+        };
     }
 }
