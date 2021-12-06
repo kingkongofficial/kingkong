@@ -134,5 +134,39 @@ namespace kingkong {
             return false;
         }
 
+        template<int N, typename Context, typename Container>
+        bool middleware_call_helper(Container&, request&, response&, Context&)
+        {
+            return false;
+        }
+
+        template<int N, typename Context, typename Container>
+        typename std::enable_if<(N < 0)>::type
+          after_handlers_call_helper(Container&, Context&, request&, response& )
+        {
+        }
+
+        template<int N, typename Context, typename Container>
+        typename std::enable_if<(N == 0)>::type after_handlers_call_helper(Container& middlewares, Context& ctx, request& req, response& res)
+        {
+            using parent_context_t = typename Context::template partial<N - 1>;
+            using CurrentMW = typename std::tuple_element<N, typename std::remove_reference<Container>::type>::type;
+            after_handler_call<CurrentMW, Context, parent_context_t>(std::get<N>(middlewares), req, res, ctx, static_cast<parent_context_t&>(ctx));
+        }
+
+        template<int N, typename Context, typename Container>
+        typename std::enable_if<(N > 0)>::type after_handlers_call_helper(Container& middlewares, Context& ctx, request& req, response& res)
+        {
+            using parent_context_t = typename Context::template partial<N - 1>;
+            using CurrentMW = typename std::tuple_element<N, typename std::remove_reference<Container>::type>::type;
+            after_handler_call<CurrentMW, Context, parent_context_t>(std::get<N>(middlewares), req, res, ctx, static_cast<parent_context_t&>(ctx));
+            after_handlers_call_helper<N - 1, Context, Container>(middlewares, ctx, req, res);
+        }
+    } 
+
+#ifdef KINGKONG_ENABLE_DEBUG
+    static std::atomic<int> connectionCount;
+#endif
+
     }
 }
