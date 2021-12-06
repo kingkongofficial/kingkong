@@ -84,5 +84,33 @@ namespace kingkong {
         public:
             static const bool value = decltype(f<T>(nullptr))::value;
         };
+
+        template<typename MW, typename Context, typename ParentContext>
+        typename std::enable_if<!is_before_handle_arity_3_impl<MW>::value>::type
+          before_handler_call(MW& mw, request& req, response& res, Context& ctx, ParentContext&)
+        {
+            mw.before_handle(req, res, ctx.template get<MW>(), ctx);
+        }
+
+        template<typename MW, typename Context, typename ParentContext>
+        typename std::enable_if<is_before_handle_arity_3_impl<MW>::value>::type
+          before_handler_call(MW& mw, request& req, response& res, Context& ctx, ParentContext&)
+        {
+            mw.before_handle(req, res, ctx.template get<MW>());
+        }
+
+        template<typename MW, typename Context, typename ParentContext>
+        typename std::enable_if<!is_after_handle_arity_3_impl<MW>::value>::type
+          after_handler_call(MW& mw, request& req, response& res, Context& ctx, ParentContext&)
+        {
+            mw.after_handle(req, res, ctx.template get<MW>(), ctx);
+        }
+
+        template<typename MW, typename Context, typename ParentContext>
+        typename std::enable_if<is_after_handle_arity_3_impl<MW>::value>::type
+          after_handler_call(MW& mw, request& req, response& res, Context& ctx, ParentContext&)
+        {
+            mw.after_handle(req, res, ctx.template get<MW>());
+        }
     }
 }
