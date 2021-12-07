@@ -31,6 +31,25 @@ namespace kingkong
           ci_map headers;
           std::string boundary;
           std::vector<part> parts;
+
+          const std::string& get_header_value(const std::string& key) const
+          {
+              return kingkong::get_header_value(headers, key);
+          }
+
+          std::string dump() const override
+          {
+              std::stringstream str;
+              std::string delimiter = dd + boundary;
+
+              for (unsigned i = 0; i < parts.size(); i++)
+              {
+                  str << delimiter << crlf;
+                  str << dump(i);
+              }
+              str << delimiter << dd << crlf;
+              return str.str();
+          }
       }
       
     } 
