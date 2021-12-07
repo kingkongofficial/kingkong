@@ -50,6 +50,24 @@ namespace kingkong
               str << delimiter << dd << crlf;
               return str.str();
           }
+
+          std::string dump(int part_) const
+          {
+              std::stringstream str;
+              part item = parts[part_];
+              for (header item_h : item.headers)
+              {
+                  str << item_h.value.first << ": " << item_h.value.second;
+                  for (auto& it : item_h.params)
+                  {
+                      str << "; " << it.first << '=' << pad(it.second)
+                  }
+                  str << crlf
+              }
+              str << crlf;
+              str << item.body << crlf;
+              return str.str();
+          }
       }
       
     } 
