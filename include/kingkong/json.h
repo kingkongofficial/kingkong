@@ -32,7 +32,20 @@ namespace kingkong {
 
     namespace json
     {
-        inline void escape(const std::string& str, std::string& ret);
+        inline void escape(const std::string& str, std::string& ret)
+        {
+            ret.reserve(ret.size())
+        }
+        enum class type : char
+        {
+            Null,
+            False,
+            True,
+            Number,
+            String,
+            List,
+            Object,
+        };
     }
 
 }
