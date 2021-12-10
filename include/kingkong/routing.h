@@ -51,5 +51,25 @@ namespace kingkong {
             res.end();
         }
 #endif 
+
+        uint32_t get_methods()
+        {
+            return methods_;
+        }
+
+        template <typename F>
+        void foreach_method(F f)
+        {
+            for (uint32_t method = 0, method_bit = 1; method < static_cast<uint32_t>(HTTPMethod::InternalMethodCount); method++, method_bit <<= 1)
+            {
+                if (methods_ & method_bit)
+                    f(method);
+            }
+
+        }
+
+        std::string custom_template base;
+
+        const std::string& rule() { return rule_; }
     }
 }
