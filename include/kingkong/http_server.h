@@ -39,5 +39,11 @@ namespace kingkong {
           middlewares_(middlewares),
           adaptor_ctx_(adaptor_ctx)
         {}
+
+        void set_tick_function(std::chrono::milliseconds d, std::function<void()> f)
+        {
+            tick_interval_ = d;
+            tick_function_ = f;
+        }
     }
 }
