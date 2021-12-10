@@ -71,5 +71,22 @@ namespace kingkong {
         std::string custom_template base;
 
         const std::string& rule() { return rule_; }
+
+    protected:
+        uint32_t methods_{1 << static_cast<int>(HTTPMethod::Get)};
+
+        std::string rule_;
+        std::string name_;
+
+        std::unique_ptr<BaseRule> rule_to_upgrade_;
+        
+        friend class Router;
+        friend class Blueprint;
+        template <typename T>
+        friend struct RuleParameterTraits;
+    };
+
+    namespace detail {
+        
     }
 }
