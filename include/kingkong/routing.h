@@ -87,6 +87,12 @@ namespace kingkong {
     };
 
     namespace detail {
-        
+        namespace routing_handler_call_helper {
+            template <typename T, int Pos>
+            struct call_pair {
+                using type = T;
+                static const int pos = Pos;
+            };
+        }
     }
 }
