@@ -112,47 +112,47 @@ namespace kingkong
             {};
 
             template<typename F, int NInt, int NUint, int NDouble, int NString, typename... Args1, typename... Args2>
-            struct call<F, NInt, NUint, NDouble, NString, black_magic::S<int64_t, Args1...>, black_magic::S<Args2...>>
+            struct call<F, NInt, NUint, NDouble, NString, magic::S<int64_t, Args1...>, magic::S<Args2...>>
             {
                 void operator()(F cparams)
                 {
-                    using pushed = typename black_magic::S<Args2...>::template push_back<call_pair<int64_t, NInt>>;
-                    call<F, NInt + 1, NUint, NDouble, NString, black_magic::S<Args1...>, pushed>()(cparams);
+                    using pushed = typename magic::S<Args2...>::template push_back<call_pair<int64_t, NInt>>;
+                    call<F, NInt + 1, NUint, NDouble, NString, magic::S<Args1...>, pushed>()(cparams);
                 }
             };
 
             template<typename F, int NInt, int NUint, int NDouble, int NString, typename... Args1, typename... Args2>
-            struct call<F, NInt, NUint, NDouble, NString, black_magic::S<uint64_t, Args1...>, black_magic::S<Args2...>>
+            struct call<F, NInt, NUint, NDouble, NString, magic::S<uint64_t, Args1...>, magic::S<Args2...>>
             {
                 void operator()(F cparams)
                 {
-                    using pushed = typename black_magic::S<Args2...>::template push_back<call_pair<uint64_t, NUint>>;
-                    call<F, NInt, NUint + 1, NDouble, NString, black_magic::S<Args1...>, pushed>()(cparams);
+                    using pushed = typename magic::S<Args2...>::template push_back<call_pair<uint64_t, NUint>>;
+                    call<F, NInt, NUint + 1, NDouble, NString, magic::S<Args1...>, pushed>()(cparams);
                 }
             };
 
             template<typename F, int NInt, int NUint, int NDouble, int NString, typename... Args1, typename... Args2>
-            struct call<F, NInt, NUint, NDouble, NString, black_magic::S<double, Args1...>, black_magic::S<Args2...>>
+            struct call<F, NInt, NUint, NDouble, NString, magic::S<double, Args1...>, magic::S<Args2...>>
             {
                 void operator()(F cparams)
                 {
-                    using pushed = typename black_magic::S<Args2...>::template push_back<call_pair<double, NDouble>>;
-                    call<F, NInt, NUint, NDouble + 1, NString, black_magic::S<Args1...>, pushed>()(cparams);
+                    using pushed = typename magic::S<Args2...>::template push_back<call_pair<double, NDouble>>;
+                    call<F, NInt, NUint, NDouble + 1, NString, magic::S<Args1...>, pushed>()(cparams);
                 }
             };
 
             template<typename F, int NInt, int NUint, int NDouble, int NString, typename... Args1, typename... Args2>
-            struct call<F, NInt, NUint, NDouble, NString, black_magic::S<std::string, Args1...>, black_magic::S<Args2...>>
+            struct call<F, NInt, NUint, NDouble, NString, magic::S<std::string, Args1...>, magic::S<Args2...>>
             {
                 void operator()(F cparams)
                 {
-                    using pushed = typename black_magic::S<Args2...>::template push_back<call_pair<std::string, NString>>;
-                    call<F, NInt, NUint, NDouble, NString + 1, black_magic::S<Args1...>, pushed>()(cparams);
+                    using pushed = typename magic::S<Args2...>::template push_back<call_pair<std::string, NString>>;
+                    call<F, NInt, NUint, NDouble, NString + 1, magic::S<Args1...>, pushed>()(cparams);
                 }
             };
 
             template<typename F, int NInt, int NUint, int NDouble, int NString, typename... Args1>
-            struct call<F, NInt, NUint, NDouble, NString, black_magic::S<>, black_magic::S<Args1...>>
+            struct call<F, NInt, NUint, NDouble, NString, magic::S<>, magic::S<Args1...>>
             {
                 void operator()(F cparams)
                 {
@@ -220,21 +220,21 @@ namespace kingkong
                 struct handler_type_helper
                 {
                     using type = std::function<void(const kingkong::request&, kingkong::response&, Args...)>;
-                    using args_type = black_magic::S<typename black_magic::promote_t<Args>...>;
+                    using args_type = magic::S<typename magic::promote_t<Args>...>;
                 };
 
                 template<typename... Args>
                 struct handler_type_helper<const request&, Args...>
                 {
                     using type = std::function<void(const kingkong::request&, kingkong::response&, Args...)>;
-                    using args_type = black_magic::S<typename black_magic::promote_t<Args>...>;
+                    using args_type = magic::S<typename magic::promote_t<Args>...>;
                 };
 
                 template<typename... Args>
                 struct handler_type_helper<const request&, response&, Args...>
                 {
                     using type = std::function<void(const kingkong::request&, kingkong::response&, Args...)>;
-                    using args_type = black_magic::S<typename black_magic::promote_t<Args>...>;
+                    using args_type = magic::S<typename magic::promote_t<Args>...>;
                 };
 
                 typename handler_type_helper<ArgsWrapped...>::type handler_;
@@ -246,7 +246,7 @@ namespace kingkong
                         decltype(handler_)>,
                       0, 0, 0, 0,
                       typename handler_type_helper<ArgsWrapped...>::args_type,
-                      black_magic::S<>>()(
+                      magic::S<>>()(
                       detail::routing_handler_call_helper::call_params<
                         decltype(handler_)>{handler_, params, req, res});
                 }
@@ -262,7 +262,7 @@ namespace kingkong
         CatchallRule() {}
 
         template<typename Func>
-        typename std::enable_if<black_magic::CallHelper<Func, black_magic::S<>>::value, void>::type
+        typename std::enable_if<magic::CallHelper<Func, magic::S<>>::value, void>::type
           operator()(Func&& f)
         {
             static_assert(!std::is_same<void, decltype(f())>::value,
@@ -282,8 +282,8 @@ namespace kingkong
 
         template<typename Func>
         typename std::enable_if<
-          !black_magic::CallHelper<Func, black_magic::S<>>::value &&
-            black_magic::CallHelper<Func, black_magic::S<kingkong::request>>::value,
+          !magic::CallHelper<Func, magic::S<>>::value &&
+            magic::CallHelper<Func, magic::S<kingkong::request>>::value,
           void>::type
           operator()(Func&& f)
         {
@@ -304,9 +304,9 @@ namespace kingkong
 
         template<typename Func>
         typename std::enable_if<
-          !black_magic::CallHelper<Func, black_magic::S<>>::value &&
-            !black_magic::CallHelper<Func, black_magic::S<kingkong::request>>::value &&
-            black_magic::CallHelper<Func, black_magic::S<kingkong::response&>>::value,
+          !magic::CallHelper<Func, magic::S<>>::value &&
+            !magic::CallHelper<Func, magic::S<kingkong::request>>::value &&
+            magic::CallHelper<Func, magic::S<kingkong::response&>>::value,
           void>::type
           operator()(Func&& f)
         {
@@ -325,9 +325,9 @@ namespace kingkong
 
         template<typename Func>
         typename std::enable_if<
-          !black_magic::CallHelper<Func, black_magic::S<>>::value &&
-            !black_magic::CallHelper<Func, black_magic::S<kingkong::request>>::value &&
-            !black_magic::CallHelper<Func, black_magic::S<kingkong::response&>>::value,
+          !magic::CallHelper<Func, magic::S<>>::value &&
+            !magic::CallHelper<Func, magic::S<kingkong::request>>::value &&
+            !magic::CallHelper<Func, magic::S<kingkong::response&>>::value,
           void>::type
           operator()(Func&& f)
         {
@@ -485,7 +485,7 @@ namespace kingkong
 #else
             using function_t = utility::function_traits<Func>;
 #endif
-            erased_handler_ = wrap(std::move(f), black_magic::gen_seq<function_t::arity>());
+            erased_handler_ = wrap(std::move(f), magic::gen_seq<function_t::arity>());
         }
 
 #ifdef KINGKONG_MSVC_WORKAROUND
@@ -494,16 +494,16 @@ namespace kingkong
         template<typename Func, unsigned... Indices>
 #endif
         std::function<void(const request&, response&, const routing_params&)>
-          wrap(Func f, black_magic::seq<Indices...>)
+          wrap(Func f, magic::seq<Indices...>)
         {
 #ifdef KINGKONG_MSVC_WORKAROUND
             using function_t = utility::function_traits<decltype(&Func::operator())>;
 #else
             using function_t = utility::function_traits<Func>;
 #endif
-            if (!black_magic::is_parameter_tag_compatible(
-                  black_magic::get_parameter_tag_runtime(rule_.c_str()),
-                  black_magic::compute_parameter_tag_from_args_list<
+            if (!magic::is_parameter_tag_compatible(
+                  magic::get_parameter_tag_runtime(rule_.c_str()),
+                  magic::compute_parameter_tag_from_args_list<
                     typename function_t::template arg<Indices>...>::value))
             {
                 throw std::runtime_error("route_dynamic: Handler type is mismatched with URL parameters: " + rule_);
@@ -544,11 +544,11 @@ namespace kingkong
         }
 
         template<typename Func>
-        typename std::enable_if<black_magic::CallHelper<Func, black_magic::S<Args...>>::value, void>::type
+        typename std::enable_if<magic::CallHelper<Func, magic::S<Args...>>::value, void>::type
           operator()(Func&& f)
         {
-            static_assert(black_magic::CallHelper<Func, black_magic::S<Args...>>::value ||
-                            black_magic::CallHelper<Func, black_magic::S<kingkong::request, Args...>>::value,
+            static_assert(magic::CallHelper<Func, magic::S<Args...>>::value ||
+                            magic::CallHelper<Func, magic::S<kingkong::request, Args...>>::value,
                           "Handler type is mismatched with URL parameters");
             static_assert(!std::is_same<void, decltype(f(std::declval<Args>()...))>::value,
                           "Handler function cannot have void return type; valid return types: string, int, kingkong::response, kingkong::returnable");
@@ -567,13 +567,13 @@ namespace kingkong
 
         template<typename Func>
         typename std::enable_if<
-          !black_magic::CallHelper<Func, black_magic::S<Args...>>::value &&
-            black_magic::CallHelper<Func, black_magic::S<kingkong::request, Args...>>::value,
+          !magic::CallHelper<Func, magic::S<Args...>>::value &&
+            magic::CallHelper<Func, magic::S<kingkong::request, Args...>>::value,
           void>::type
           operator()(Func&& f)
         {
-            static_assert(black_magic::CallHelper<Func, black_magic::S<Args...>>::value ||
-                            black_magic::CallHelper<Func, black_magic::S<kingkong::request, Args...>>::value,
+            static_assert(magic::CallHelper<Func, magic::S<Args...>>::value ||
+                            magic::CallHelper<Func, magic::S<kingkong::request, Args...>>::value,
                           "Handler type is mismatched with URL parameters");
             static_assert(!std::is_same<void, decltype(f(std::declval<kingkong::request>(), std::declval<Args>()...))>::value,
                           "Handler function cannot have void return type; valid return types: string, int, kingkong::response, kingkong::returnable");
@@ -592,14 +592,14 @@ namespace kingkong
 
         template<typename Func>
         typename std::enable_if<
-          !black_magic::CallHelper<Func, black_magic::S<Args...>>::value &&
-            !black_magic::CallHelper<Func, black_magic::S<kingkong::request, Args...>>::value &&
-            black_magic::CallHelper<Func, black_magic::S<kingkong::response&, Args...>>::value,
+          !magic::CallHelper<Func, magic::S<Args...>>::value &&
+            !magic::CallHelper<Func, magic::S<kingkong::request, Args...>>::value &&
+            magic::CallHelper<Func, magic::S<kingkong::response&, Args...>>::value,
           void>::type
           operator()(Func&& f)
         {
-            static_assert(black_magic::CallHelper<Func, black_magic::S<Args...>>::value ||
-                            black_magic::CallHelper<Func, black_magic::S<kingkong::response&, Args...>>::value,
+            static_assert(magic::CallHelper<Func, magic::S<Args...>>::value ||
+                            magic::CallHelper<Func, magic::S<kingkong::response&, Args...>>::value,
                           "Handler type is mismatched with URL parameters");
             static_assert(std::is_same<void, decltype(f(std::declval<kingkong::response&>(), std::declval<Args>()...))>::value,
                           "Handler function with response argument should have void return type");
@@ -616,15 +616,15 @@ namespace kingkong
 
         template<typename Func>
         typename std::enable_if<
-          !black_magic::CallHelper<Func, black_magic::S<Args...>>::value &&
-            !black_magic::CallHelper<Func, black_magic::S<kingkong::request, Args...>>::value &&
-            !black_magic::CallHelper<Func, black_magic::S<kingkong::response&, Args...>>::value,
+          !magic::CallHelper<Func, magic::S<Args...>>::value &&
+            !magic::CallHelper<Func, magic::S<kingkong::request, Args...>>::value &&
+            !magic::CallHelper<Func, magic::S<kingkong::response&, Args...>>::value,
           void>::type
           operator()(Func&& f)
         {
-            static_assert(black_magic::CallHelper<Func, black_magic::S<Args...>>::value ||
-                            black_magic::CallHelper<Func, black_magic::S<kingkong::request, Args...>>::value ||
-                            black_magic::CallHelper<Func, black_magic::S<kingkong::request, kingkong::response&, Args...>>::value,
+            static_assert(magic::CallHelper<Func, magic::S<Args...>>::value ||
+                            magic::CallHelper<Func, magic::S<kingkong::request, Args...>>::value ||
+                            magic::CallHelper<Func, magic::S<kingkong::request, kingkong::response&, Args...>>::value,
                           "Handler type is mismatched with URL parameters");
             static_assert(std::is_same<void, decltype(f(std::declval<kingkong::request>(), std::declval<kingkong::response&>(), std::declval<Args>()...))>::value,
                           "Handler function with response argument should have void return type");
@@ -650,8 +650,8 @@ namespace kingkong
               detail::routing_handler_call_helper::call_params<
                 decltype(handler_)>,
               0, 0, 0, 0,
-              black_magic::S<Args...>,
-              black_magic::S<>>()(
+              magic::S<Args...>,
+              magic::S<>>()(
               detail::routing_handler_call_helper::call_params<
                 decltype(handler_)>{handler_, params, req, res});
         }
@@ -1108,11 +1108,11 @@ namespace kingkong
         }
 
         template<uint64_t N>
-        typename black_magic::arguments<N>::type::template rebind<TaggedRule>& new_rule_tagged(std::string&& rule)
+        typename magic::arguments<N>::type::template rebind<TaggedRule>& new_rule_tagged(std::string&& rule)
         {
             std::string new_rule = std::move(rule);
             new_rule = '/' + prefix_ + new_rule;
-            using RuleT = typename black_magic::arguments<N>::type::template rebind<TaggedRule>;
+            using RuleT = typename magic::arguments<N>::type::template rebind<TaggedRule>;
 
             auto ruleObject = new RuleT(new_rule);
             ruleObject->custom_templates_base = templates_dir_;
@@ -1182,9 +1182,9 @@ namespace kingkong
         }
 
         template<uint64_t N>
-        typename black_magic::arguments<N>::type::template rebind<TaggedRule>& new_rule_tagged(const std::string& rule)
+        typename magic::arguments<N>::type::template rebind<TaggedRule>& new_rule_tagged(const std::string& rule)
         {
-            using RuleT = typename black_magic::arguments<N>::type::template rebind<TaggedRule>;
+            using RuleT = typename magic::arguments<N>::type::template rebind<TaggedRule>;
 
             auto ruleObject = new RuleT(rule);
             all_rules_.emplace_back(ruleObject);
