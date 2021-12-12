@@ -22,3 +22,6 @@
 #ifdef KINGKONG_ENABLE_COMPRESSION
 #include "kingkong/compression.h"
 #endif
+
+#ifndef KINGKONG_MSVC_WORKAROUND
+#endif 
