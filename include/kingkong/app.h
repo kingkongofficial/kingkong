@@ -23,5 +23,19 @@
 #include "kingkong/compression.h"
 #endif
 
-#ifndef KINGKONG_MSVC_WORKAROUND
-#endif 
+#ifdef KINGKONG_MSVC_WORKAROUND
+#define KINGKONG_ROUTE(app, url) app.route_dynamic(url)
+#define KINGKONG_BP_ROUTE(blueprint, url) blueprint.new_rule_dynamic(url)
+#else
+#define KINGKONG_ROUTE(app, url) app.route<kingkong::black_magic::get_parameter_tag(url)>(url)
+#define KINGKONG_BP_ROUTE(blueprint, url) blueprint.new_rule_tagged<kingkong::black_magic::get_parameter_tag(url)>(url)
+#endif
+#define KINGKONG_CATCHALL_ROUTE(app) app.catchall_route()
+#define KINGKONG_BP_CATCHALL_ROUTE(blueprint) blueprint.catchall_rule()
+
+namespace kingkong {
+#ifndef KINGKONG_ENABLE_SSL
+    using ssl_context_t = boost::asio::ssl::context;
+#endif
+
+}
