@@ -19,13 +19,41 @@ TEST_CASE("SSL")
 
     KINGKONG_ROUTE(app, "/")
     ([]() {
-        return "Hello World";
+        return "Hello world, I'm keycrt.";
     });
 
-    auto _ = async(std::launch_options, [&] {
+    auto _ = async(std::launch::async, [&] {
         app.bindaddr(LOCALHOST_ADDRESS).port(45460).ssl_file("test.crt", "test.key").run();
-    })
+    });
 
     app.wait_for_server_start();
 
+    std::string sendmsg = "GET /\r\n\r\n";
+
+    asio::ssl::context ctx(asio::ssl::context::sslv23);
+
+    asio::io_service is;
+    {
+        asio::ssl::stream<asio::ip::tcp::socket> c(is, ctx);
+        c.lowest_layer().connect(asio::ip::tcp::endpoint(asio::ip::address::from_string(LOCALHOST_ADDRESS), 45460));
+
+        c.handshake(asio::ssl::stream_base::client);
+        c.write_some(asio::buffer(sendmsg));
+
+        size_t x = 0;
+        size_t y = 0;
+
+        while (x < 121)
+        {
+            y = c.read_some(asio::buffer(buf, 2048));
+            x += y;
+            buf[y] = '\0';
+        }
+
+        CHECK(std::string("Hello world, I'm keycrt.") == std::string(buf));
+    }
+
+    app.stop();
+
+    std::system("rm test.crt test.key");
 }
