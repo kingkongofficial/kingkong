@@ -18,5 +18,29 @@ using namespace kingkong;
 
 TEST_CASE("Rule")
 {
-    
+   TaggedRule<> r("/http/") ;
+   r.name("abc");
+
+   try 
+   {
+       r.validate();
+       FAIL_CHECK("empty handler should fail to validate");
+   }
+   catch (runtime_error& e)
+   {
+   }
+
+   int x = 0;
+
+   r([&x] {
+       x = 1;
+       return "";
+   });
+   
+   r.validate();
+
+   response res;
+
+   CHECK(0 == x);
+
 }
