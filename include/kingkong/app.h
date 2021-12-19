@@ -13,7 +13,7 @@
 #include "kingkong/version.h"
 #include "kingkong/settings.h"
 #include "kingkong/logging.h"
-#include "kingkong/utility.h"
+#include "kingkong/utils.h"
 #include "kingkong/routing.h"
 #include "kingkong/middleware_context.h"
 #include "kingkong/http_request.h"

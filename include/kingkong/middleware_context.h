@@ -1,7 +1,7 @@
 #pragma once
 
 /* includes */
-#include "kingkong/utility.h"
+#include "kingkong/utils.h"
 #include "kingkong/http_request.h"
 #include "kingkong/http_response.h"
 

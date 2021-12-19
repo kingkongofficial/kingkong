@@ -99,7 +99,7 @@ namespace Catch {
 // end catch_user_interfaces.h
 // start catch_tag_alias_autoregistrar.h
 
-// start catch_common.h
+// start catch_ak.h
 
 // start catch_compiler_capabilities.h
 
@@ -538,7 +538,7 @@ namespace Catch {
 #define CATCH_INTERNAL_LINEINFO \
     ::Catch::SourceLineInfo( __FILE__, static_cast<std::size_t>( __LINE__ ) )
 
-// end catch_common.h
+// end catch_ak.h
 namespace Catch {
 
     struct RegistrarForTagAliases {
