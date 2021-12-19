@@ -8,7 +8,7 @@ set(TEST_SRCS
 )
 
 add_executable(unittest ${TEST_SRCS})
-target_link_libraries(unittest Crow::Crow)
+target_link_libraries(unittest Kingkong::Kingkong)
 add_warnings_optimizations(unittest)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
@@ -17,7 +17,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 endif()
 
 add_subdirectory(template)
-if (CROW_ENABLE_SSL)
+if (KINGKONG_ENABLE_SSL)
 	add_subdirectory(ssl)
 endif()
 add_subdirectory(img)
