@@ -31,7 +31,7 @@ option(KINGKONG_ENABLE_SSL         "Enable SSL capabilities (OpenSSL)"      OFF)
 option(KINGKONG_ENABLE_COMPRESSION "Enable compression capabilities (ZLIB)" OFF)
 
 add_library(KingKong INTERFACE)
-add_library(KingKong::KingKong ALIAS KingKong)
+add_library(kingkong::kingkong ALIAS KingKong)
 
 target_include_directories(KingKong
 	INTERFACE

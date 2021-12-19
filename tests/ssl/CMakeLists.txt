@@ -8,7 +8,7 @@ set(TEST_SRCS
 )
 
 add_executable(ssltest ${TEST_SRCS})
-target_link_libraries(ssltest Kingkong::Kingkong)
+target_link_libraries(ssltest kingkong::kingkong)
 add_warnings_optimizations(ssltest)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")

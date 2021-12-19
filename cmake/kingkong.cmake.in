@@ -15,8 +15,8 @@ endif()
 include("${CMAKE_CURRENT_LIST_DIR}/KingKongTargets.cmake")
 check_required_components("@PROJECT_NAME@")
 
-get_target_property(_KINGKONG_ILL KingKong::KingKong INTERFACE_LINK_LIBRARIES)
-get_target_property(_KINGKONG_ICD KingKong::KingKong INTERFACE_COMPILE_DEFINITIONS)
+get_target_property(_KINGKONG_ILL kingkong::kingkong INTERFACE_LINK_LIBRARIES)
+get_target_property(_KINGKONG_ICD kingkong::kingkong INTERFACE_COMPILE_DEFINITIONS)
 
 list(REMOVE_ITEM _KINGKONG_ILL "ZLIB::ZLIB" "OpenSSL::SSL")
 list(REMOVE_ITEM _KINGKONG_ICD "KINGKONG_ENABLE_SSL" "KINGKONG_ENABLE_COMPRESSION")
@@ -31,7 +31,7 @@ if(KINGKONG_ENABLE_SSL)
   list(APPEND _KINGKONG_ICD "KINGKONG_ENABLE_SSL")
 endif()
 
-set_target_properties(KingKong::KingKong PROPERTIES
+set_target_properties(kingkong::kingkong PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "${_KINGKONG_ICD}"
   INTERFACE_LINK_LIBRARIES "${_KINGKONG_ILL}"
 )

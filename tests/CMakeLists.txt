@@ -8,7 +8,7 @@ set(TEST_SRCS
 )
 
 add_executable(unitest ${TEST_SRCS})
-target_link_libraries(unitest Kingkong::Kingkong)
+target_link_libraries(unitest kingkong::kingkong)
 add_warnings_optimizations(unitest)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
