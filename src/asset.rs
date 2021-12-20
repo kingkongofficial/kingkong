@@ -19,3 +19,18 @@ pub fn etag(path: &str) -> Cow<str> {
         Cow::from(format!("{:x}", hasher.finish()))
     }
 }
+
+pub fn last_modified(path: &str) -> Option<String> {
+    if is_bundled() {
+        return None;
+    }
+    None
+}
+
+pub fn is_bundled() -> bool {
+    bundled_assets().is_some()
+}
+
+fn bundled_assets() -> Option<&'static HashMap<String, &'static [u8]>> {
+    unsafe { crate::BUNDLED_ASSETS.as_ref() }
+}
