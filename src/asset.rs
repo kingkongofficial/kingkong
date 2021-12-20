@@ -9,3 +9,13 @@ use {
         str,
     },
 };
+
+pub fn etag(path: &str) -> Cow<str> {
+    if is_builded() {
+        Cow::from(crate::BUILD_DATE)
+    } else {
+        let mut hasher = DefaultHasher::new();
+        last_modified(path).hash(&mut hasher);
+        Cow::from(format!("{:x}", hasher.finish()))
+    }
+}
