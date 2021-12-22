@@ -37,7 +37,22 @@ pub struct Response {
     code: usize,
     headers: HashMap<String, String>,
     body: Body,
-    
+
     #[cfg(feature = "cookies")]
     cookies: HashMap<String, String>,
+}
+
+impl PartialEq for Response {
+    fn eq(&self, other: &Self) -> bool {
+        self.code == other.code
+            && self.headers == other.headers
+            && self.content_type() == other.content_type()
+            && self.body.as_str() == other.body.as_str()
+    }
+}
+
+impl fmt::Display for Response {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.body)
+    }
 }
