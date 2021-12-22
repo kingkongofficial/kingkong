@@ -18,7 +18,7 @@ pub fn run<T: ToSocketAddrs>(addr: T, router: Router, banner: Option<&str>) -> R
     let server = Arc::new(Server::new(router));
 
     #[cfg(feature = "state")]
-    eprintln!("! vial feature `state` is now built-in. You can safely remove it.");
+    eprintln!("! kingkong feature `state` is now built-in. You can safely remove it.");
 
     if let Some(banner) = banner {
         if !banner.is_empty() {
@@ -31,13 +31,14 @@ pub fn run<T: ToSocketAddrs>(addr: T, router: Router, banner: Option<&str>) -> R
     for stream in listener.incoming() {
         let server = server.clone();
         let stream = stream?;
-        pool.execute(move|| {
+        pool.execute(move || {
             if let Err(e) = server.handle_request(stream) {
                 eprintln!("!! {}", e);
             }
         });
     }
-    Ok(());
+
+    Ok(())
 }
 
 struct Server {
@@ -53,6 +54,32 @@ impl Server {
         let reader = stream.try_clone()?;
         let req = Request::from_reader(reader)?;
         self.write_response(stream, req)
+    }
+
+    fn write_response(&self, stream: TcpStream, req: Request) -> Result<()> {
+        let panic_writer = Arc::new(Mutex::new(stream.try_clone()?));
+        std::panic::set_hook(Box::new(move |info| {
+            let mut res: Vec<u8> = vec![];
+
+            Response::from(500)
+                .with_body(format!("<pre>{}", info))
+                .write(&mut res)
+                .unwrap();
+
+            println!("ERR 500 {}", String::from_utf8_lossy(&res));
+            panic_writer.lock().unwrap().write_all(&res).unwrap();
+        }));
+
+        let method = req.method().to_string();
+        let path = req.path().to_string();
+        let response = self.build_response(req);
+
+        println!("{} {} {}", method, response.code(), path);
+        if response.code() == 500 {
+            eprintln!("{}", response.body());
+        }
+
+        response.write(stream)
     }
 
     fn build_response(&self, mut req: Request) -> Response {
