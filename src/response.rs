@@ -56,3 +56,23 @@ impl fmt::Display for Response {
         write!(f, "{}", self.body)
     }
 }
+
+impl Default for Response {
+    fn default() -> Response {
+        let mut headers = HashMap::new();
+        headers.insert(
+            "Content-Type".to_lowercase(),
+            "text/html; charset=utf-8".into(),
+        );
+        headers.insert("Content-Length".to_lowercase(), "0".into());
+
+        Response {
+            code: 200,
+            body: Body::None,
+            headers,
+
+            #[cfg(feature = "cookies")]
+            cookies: HashMap::new(),
+        }
+    }
+}
