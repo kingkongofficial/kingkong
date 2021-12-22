@@ -1,4 +1,4 @@
-name: Linux C/C++ CI
+name: Linux Rust 
 
 on:
   push:
@@ -13,5 +13,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: check g++ version
-      run: g++ --version
+    - name: check cargo version
+      run: cargo version
