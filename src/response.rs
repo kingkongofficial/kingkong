@@ -110,3 +110,21 @@ impl From<&String> for Response {
         Response::from_body(s.clone())
     }
 }
+
+impl From<String> for Response {
+    fn from(body: String) -> Response {
+        Response::from_body(body)
+    }
+}
+
+impl From<usize> for Response {
+    fn from(i: usize) -> Response {
+        Response::from_code(i)
+    }
+}
+
+impl From<std::borrow::Cow<'_, [u8]>> for Response {
+    fn from(i: std::borrow::Cow<'_, [u8]>) -> Response {
+        Response::from_body(String::from_utf8_lossy(&i).to_string())
+    }
+}
