@@ -76,3 +76,37 @@ impl Default for Response {
         }
     }
 }
+
+impl Response {
+    pub fn new() -> Response {
+        Response::default()
+    }
+
+    pub fn code(&self) -> usize {
+        self.code
+    }
+
+    pub fn content_type(&self) -> str {
+        self.header("Content-Type").unwrap_or("")
+    }
+
+    pub fn body(&self) -> &str {
+        self.body.as_str()
+    }
+
+    pub fn headers(&self) -> &HashMap<String, String> {
+        &self.headers
+    }
+}
+
+impl From<&str> for Response {
+    fn from(s: &str) -> Response {
+        Response::from_body(s.to_string())
+    }
+}
+
+impl From<&String> for Response {
+    fn from(s: &String) -> Response {
+        Response::from_body(s.clone())
+    }
+}
