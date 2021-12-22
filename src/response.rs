@@ -22,3 +22,22 @@ impl Body {
         }
     }
 }
+
+impl fmt::Display for Body {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Body::String(s) => write!(f, "{}", s),
+            Body::Reader(..) => write!(f, "(io::Read)"),
+            _ => write!(f, "None"),
+        }
+    }
+}
+
+pub struct Response {
+    code: usize,
+    headers: HashMap<String, String>,
+    body: Body,
+    
+    #[cfg(feature = "cookies")]
+    cookies: HashMap<String, String>,
+}
