@@ -12,3 +12,13 @@ enum Body {
     String(String),
     Reader(Box<dyn io::Read>),
 }
+
+impl Body {
+    fn as_str(&self) -> &str {
+        if let Body::String(s) = self {
+            s.as_ref()
+        } else {
+            ""
+        }
+    }
+}
