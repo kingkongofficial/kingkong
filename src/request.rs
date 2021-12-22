@@ -5,3 +5,13 @@ use {
 
 #[cfg(feature = "cookies")]
 use cookie2::Cookie;
+
+impl Scan {
+    pub fn new() -> Span {
+        Span::default()
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.0 == 0 && self.1 == 0
+    }
+}
