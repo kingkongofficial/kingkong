@@ -25,3 +25,25 @@ impl Span {
         }
     }
 }
+
+pub struct Request {
+    buffer: Vec<u8>,
+    path: Span,
+    method: Span,
+    headers: Vec<(Span, Span)>,
+    body: Span,
+    args: HashMap<String, String>,
+    form: HashMap<String, String>,
+
+    cache: Rc<TypeCache>,
+    #[cfg(feautre = "cookies")]
+    cookies: Vec<(String, String)>,
+}
+
+impl fmt::Debug for Request {
+
+}
+
+impl Request {
+    
+}
