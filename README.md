@@ -10,6 +10,13 @@ King Kong Web Framework
 - intrested in kingkong??
 - check out the learn kingkong [guide](https://github.com/kingkongofficial/kingkong/blob/main/docs/learnkingkong.md)
 
+## Installation:
+```bash
+[dependencies]
+kingkong = { git = "https://github.com/kingkongofficial/kingkong" }
+
+```
+
 ## Contribution:
 - kingkong is an open source project you can contribute to it :)
 
