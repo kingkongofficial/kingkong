@@ -16,11 +16,25 @@ King Kong Web Framework
 - check out the learn kingkong [guide](https://github.com/kingkongofficial/kingkong/blob/main/docs/learnkingkong.md)
 
 ## Installation:
-```bash
+```toml
 [dependencies]
 kingkong = { git = "https://github.com/kingkongofficial/kingkong" }
-
 ```
+
+## Quick Start:
+```rust
+use kingkong::prelude::*;
+
+kingkong::routes! {
+    GET "/" => |_| "Hello World.";
+}
+
+fn main() {
+    kingkong::run!().unwrap();
+}
+```
+
+- for more tutorials check the [docs]()
 
 ## Contribution:
 - kingkong is an open source project you can contribute to it :)
