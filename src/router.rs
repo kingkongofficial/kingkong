@@ -10,7 +10,7 @@ pub type Action = fn(Request) -> Response;
 
 #[derive(Default)]
 pub struct Router {
-    routes: HashMap<Method, Vec(Pattern, Action)>   ,
+    routes: HashMap<Method, Vec<(Pattern, Action)>>,
 }
 
 impl Router {
@@ -21,7 +21,41 @@ impl Router {
     }
 
     pub fn action_for(&self, req: &mut Request) -> Option<&Action> {
+        if let Some(routes) = self.routes.get(&req.method().into()) {
+            let req_parts = Self::pattern_to_vec(req.path());
 
+            'outer: for (pattern, action) in routes {
+                for i in 0..max(req_parts.len(), pattern.len()) {
+                    if i >= pattern.len() {
+                        continue 'outer;
+                    }
+                    let pattern_part = &pattern[i];
+                    if i >= req_parts.len() {
+                        continue 'outer;
+                    }
+                    let req_part = &req_parts[i];
+                    if pattern_part.starts_with(':') && !req_part.is_empty() {
+                        if let Some(decoded) = percent_decode(req_part) {
+                            req.set_arg(pattern_part.trim_start_matches(':').into(), decoded);
+                        }
+                        continue;
+                    } else if pattern_part.starts_with('*') && !req_part.is_empty() {
+                        if let Some(idx) = req.path().find(&req_parts[i]) {
+                            if let Some(decoded) = percent_decode(&req.path()[idx..]) {
+                                req.set_arg(pattern_part.trim_start_matches('*').into(), decoded);
+                            }
+                        }
+                        return Some(action);
+                    } else if req_part == pattern_part {
+                        continue;
+                    } else {
+                        continue 'outer;
+                    }
+                }
+                return Some(action);
+            }
+        }
+        None
     }
 
     fn pattern_to_vec(pattern: &str) -> Pattern {
@@ -48,5 +82,4 @@ impl Router {
             self.routes.insert(method, vec![(pattern_parts, action)]);
         }
     }
-
 }
