@@ -34,4 +34,14 @@ impl TypeCache {
         self.map.borrow_mut().insert(TypeId::of::<T>(), boxed);
         self.unlock();
     }
+
+    #[inline(always)]
+    fn lock(&self) {
+        while self.mutex.compare_and_swap(0, 1, Ordering::SeqCst) != 0 {}
+    }
+
+    #[inline(always)]
+    fn unlock(&self) {
+        assert!(self.mutex.compare_and_swap(1, 0, Ordering::SeqCst) == 1);
+    }
 }
