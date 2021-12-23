@@ -38,4 +38,15 @@ impl Router {
             .collect::<Vec<_>>()
     }
 
+    pub fn insert<T: Into<Method>>(&mut self, method: T, pattern: &'static str, action: Action) {
+        let method = method.into();
+        let pattern_parts = Self::pattern_to_vec(pattern);
+
+        if let Some(map) = self.routes.get_mut(&method) {
+            map.push((pattern_parts, action));
+        } else {
+            self.routes.insert(method, vec![(pattern_parts, action)]);
+        }
+    }
+
 }
