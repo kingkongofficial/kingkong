@@ -15,4 +15,23 @@ impl TypeCache {
     pub fn new() -> TypeCache {
         TypeCache::default()
     }
+
+    pub fn get<T: Send + Sync + 'static>(&self) -> Option<&T> {
+        self.lock();
+        let item = unsafe {
+            self.map
+                .borrow()
+                .get(&TypeId::of::<T>())
+                .map(|ptr| &*(*ptr as *const dyn Any as *const T))
+        };
+        self.unlock();
+        item
+    }
+
+    pub fn set<T: Send + Sync + 'static>(&self, v: T) {
+        self.lock();
+        let boxed = Box::into_raw(Box::new(v) as Box<dyn Any>);
+        self.map.borrow_mut().insert(TypeId::of::<T>(), boxed);
+        self.unlock();
+    }
 }
