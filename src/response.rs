@@ -36,10 +36,10 @@ impl fmt::Display for Body {
 pub struct Response {
     code: usize,
     headers: HashMap<String, String>,
+
     body: Body,
 
     #[cfg(feature = "cookies")]
-
     cookies: HashMap<String, String>,
 }
 
@@ -89,90 +89,116 @@ impl Default for Response {
 }
 
 impl Response {
+    /// Create a new, empty, 200 response - ready for HTML!
     pub fn new() -> Response {
         Response::default()
     }
 
+    /// HTTP Status Code
     pub fn code(&self) -> usize {
         self.code
     }
 
+    /// Either the inferred or user-set Content-Type for this Response.
     pub fn content_type(&self) -> &str {
         self.header("Content-Type").unwrap_or("")
     }
 
+    /// Response body.
     pub fn body(&self) -> &str {
         self.body.as_str()
     }
 
+    /// Take a peek at all the headers for this response.
     pub fn headers(&self) -> &HashMap<String, String> {
         &self.headers
     }
 
+    /// Get an individual header. `name` is case insensitive.
     pub fn header(&self, name: &str) -> Option<&str> {
         self.headers.get(&name.to_lowercase()).map(|h| h.as_ref())
     }
 
+    /// Set an individual header.
     pub fn set_header(&mut self, name: &str, value: &str) {
         self.headers.insert(name.to_lowercase(), value.to_string());
     }
 
     #[cfg(feature = "cookies")]
+    /// Get an individual cookie. `name` is case insensitive.
     pub fn cookie(&self, name: &str) -> Option<&str> {
         self.cookies.get(&name.to_lowercase()).map(|h| h.as_ref())
     }
 
     #[cfg(feature = "cookies")]
+    /// Set a cookie.
     pub fn set_cookie(&mut self, name: &str, value: &str) {
         self.cookies.insert(name.to_lowercase(), value.into());
     }
 
     #[cfg(feature = "cookies")]
+    /// Remove a cookie from the client.
     pub fn remove_cookie(&mut self, name: &str) {
         self.cookies.insert(name.to_lowercase(), "".into());
     }
 
+    /// Convert into a Response.
     pub fn from<T: Into<Response>>(from: T) -> Response {
         from.into()
     }
 
+    /// Create a response from an asset. See the
+    /// [`asset`](asset/index.html) module for more information on
+    /// using assets.
     pub fn from_asset(path: &str) -> Response {
         Response::default().with_asset(path)
     }
 
+    /// Create a response from a (boxed) io::Read.
     pub fn from_reader(reader: Box<dyn io::Read>) -> Response {
         Response::default().with_reader(reader)
     }
 
+    /// Creates a response from a file on disk.
+    /// TODO: Path?
     pub fn from_file(path: &str) -> Response {
         Response::default().with_file(path)
     }
 
+    /// Creates a 500 response from an error, displaying it.
     pub fn from_error<E: error::Error>(err: E) -> Response {
         Response::default().with_error(err)
     }
 
+    /// Creates a new Response and sets the given header, in
+    /// addition to the defaults.
     pub fn from_header(name: &str, value: &str) -> Response {
         Response::default().with_header(name, value)
     }
 
     #[cfg(feature = "cookies")]
+    /// Creates a new Response and sets the given cookie, in
+    /// addition to the defaults.
     pub fn from_cookie(name: &str, value: &str) -> Response {
         Response::default().with_cookie(name, value)
     }
 
+    /// Creates a new default Response with the given body.
     pub fn from_body<S: AsRef<str>>(body: S) -> Response {
         Response::default().with_body(body)
     }
 
+    /// Creates a new `text/plain` Response with the given body.
     pub fn from_text<S: AsRef<str>>(text: S) -> Response {
         Response::default().with_text(text)
     }
 
+    /// Creates a new response with the given HTTP Status Code.
     pub fn from_code(code: usize) -> Response {
         Response::default().with_code(code)
     }
 
+    /// Creates a new response with the given HTTP Status Code.
     pub fn with_code(mut self, code: usize) -> Response {
         self.code = code;
         match code {
@@ -182,6 +208,7 @@ impl Response {
         }
     }
 
+    /// Body builder. Returns a Response with the given body.
     pub fn with_body<S: AsRef<str>>(mut self, body: S) -> Response {
         let body = body.as_ref();
         self.body = Body::String(body.to_string());
@@ -189,8 +216,13 @@ impl Response {
         self
     }
 
+    /// Returns an `application/json` Response with a body serialized as JSON
+    /// from the given value.
+    ///
+    /// The `json_serde` feature must be enabled in `Cargo.toml`.
     #[cfg(feature = "json_serde")]
     pub fn with_json<T: serde::Serialize>(self, value: T) -> Response {
+        // Panics if to_value returns Err because this probably indicates a programming error.
         self.with_body(
             serde_json::to_value(value)
                 .expect("Serialize failed")
@@ -199,16 +231,23 @@ impl Response {
         .with_header("Content-Type", "application/json")
     }
 
+    /// Returns a `text/plain` Response with the given body.
     pub fn with_text<S: AsRef<str>>(self, text: S) -> Response {
         self.with_body(text)
             .with_header("Content-Type", "text/plain; charset=utf8")
     }
 
+    /// Returns a Response using the given reader for the body.
     pub fn with_reader(mut self, reader: Box<dyn io::Read>) -> Response {
         self.body = Body::Reader(reader);
         self
     }
 
+    /// Uses an asset for the given body and sets the `Content-Type`
+    /// header based on the file's extension.
+    ///
+    /// See the [`asset`](asset/index.html) module for more
+    /// information on using assets.
     pub fn with_asset(mut self, path: &str) -> Response {
         if let Some(path) = asset::normalize_path(path) {
             if asset::exists(&path) {

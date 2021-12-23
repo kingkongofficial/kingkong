@@ -15,7 +15,6 @@ pub fn bundle_assets(dir: &str) -> Result<()> {
     #[cfg(not(debug_assertions))]
     {
         let out_dir = env::var("OUT_DIR").unwrap();
-
         let link = Path::new(&out_dir).join(dir);
         if link.exists() {
             fs::remove_file(&link)?;
@@ -54,7 +53,6 @@ pub fn bundle_assets(dir: &str) -> Result<()> {
 
 #[doc(hidden)]
 #[allow(dead_code)]
-
 pub fn walk(dir: &str) -> std::vec::IntoIter<PathBuf> {
     if let Ok(files) = files_in_dir(dir) {
         files.into_iter()

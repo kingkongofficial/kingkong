@@ -28,11 +28,11 @@ impl Span {
         }
     }
 }
-
 pub struct Request {
     buffer: Vec<u8>,
 
     path: Span,
+
     method: Span,
 
     headers: Vec<(Span, Span)>,
@@ -291,7 +291,6 @@ impl Request {
         })
     }
 
-    
     pub fn state<T: Send + Sync + 'static>(&self) -> &T {
         crate::storage::get::<T>()
     }
