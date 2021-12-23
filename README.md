@@ -1,7 +1,7 @@
 # kingkong
 King Kong Web Framework
 
-[![forthebadge](https://forthebadge.com/images/badges/made-with-c-plus-plus.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-rust.svg)](https://forthebadge.com)
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/kingkongofficial/kingkong/main/imgs/kingkong.jpeg" width="200" height="200">
