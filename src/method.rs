@@ -14,7 +14,7 @@ pub enum Method {
 
 impl std::str::FromStr for Method {
     type Err = Error;
-    
+
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Ok(match s {
             "GET" => Method::GET,
@@ -27,5 +27,11 @@ impl std::str::FromStr for Method {
             "TRACE" => Method::TRACE,
             _ => return Err(Error::UnknownHTTPMethod(s.into())),
         })
+    }
+}
+
+impl From<&str> for Method {
+    fn from(s: &str) -> Method {
+        s.parse().unwrap_or(Method::GET)
     }
 }
