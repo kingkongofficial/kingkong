@@ -25,7 +25,8 @@ pub fn run<T: ToSocketAddrs>(addr: T, router: Router, banner: Option<&str>) -> R
             println!("{}", banner.replace("{}", &format!("http://{}", addr)));
         }
     } else {
-        println!("~ kingkong running at http://{}", addr);
+        println!("🚀 kingkong running at http://{} 🚀", addr);
+        println!("github: https://github.com/kingkongofficial/kingkong");
     }
 
     for stream in listener.incoming() {
