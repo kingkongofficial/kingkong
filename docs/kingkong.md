@@ -27,3 +27,22 @@ fn main() {
     kingkong::run!().unwrap();
 }
 ```
+
+## Serving static file:
+```rust
+use vial::prelude::*;
+
+routes! {
+    // kingkong supports serving .jpeg, .jpg, png, .gif
+    GET "/" => |_| "<img src='/yourimage.jpeg' />";
+    // serving html files also works
+    GET "/index" => |_| Response::from_asset("index.html");
+}
+
+fn main() {
+    // specify the dir where the image is available :)
+    asset_dir!("./assets");
+    // run the wapp
+    run!().unwrap();
+}
+```
