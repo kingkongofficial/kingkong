@@ -53,6 +53,31 @@ pub fn parse(mut buffer: Vec<u8>) -> Result<Status, Error> {
         }
     };
 
+    if method_len == 0 {
+        return Err(Error::UnknownHTTPMethod("?".into()));
+    }
+
+    if buffer[method_len] != b' ' {
+        return Err(Error::ParseError);
+    }
+
+    let path_len = buffer[method_len + 1..].iter().position(|c| *c == b' ');
+    if path_len.is_none() {
+        return Ok(Status::Partial(buffer));
+    }
+    let path_len = path_len.unwrap();
+    pos = method_len + 1 + path_len + 1;
+
+    for c in b"HTTP/1.1" {
+        if buffer.len() <= pos {
+            return Ok(Status::Partial(buffer));
+        } else if buffer[pos] == *c {
+            pos += 1;
+        } else {
+            return Err(Error::ParseVersion);
+        }
+    }
+
     let method = Span(0, method_len);
     let path = Span(method_len + 1, method_len + 1, path_len);
 }
