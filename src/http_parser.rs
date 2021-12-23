@@ -3,7 +3,7 @@ use crate::{request::Span, Error, Request};
 #[derive(Debug)]
 pub enum Status {
     Complete(Request),
-    PartialEq(Vec<u8>),
+    Partial(Vec<u8>),
 }
 
 const MAX_HEADER_SIZE: usize = 8192;
@@ -20,7 +20,7 @@ pub fn parse(mut buffer: Vec<u8>) -> Result<Status, Error> {
             if buffer[pos..].len() < $size {
                 return Ok(Status::Partial(buffer));
             } else {
-                true 
+                true
             }
         };
     }
@@ -78,6 +78,107 @@ pub fn parse(mut buffer: Vec<u8>) -> Result<Status, Error> {
         }
     }
 
+    if need!(1) && buffer[pos] == b'\n' {
+        pos += 1;
+    } else if need!(2) && &buffer[pos..pos + 2] == b"\r\n" {
+        pos += 2;
+    } else {
+        return Err(Error::ExpectedCRLF);
+    }
+
+    if (need!(1) && buffer[pos] == b'\n') || (need!(2) && &buffer[pos..pos + 2] == b"\r\n") {
+        let method = Span(0, method_len);
+        let path = Span(method_len + 1, method_len + 1 + path_len);
+
+        return Ok(Status::Complete(Request::new(
+            method,
+            path,
+            Vec::new(),
+            Span::new(),
+            buffer,
+        )));
+    }
+
+    let mut start = pos;
+    let mut headers = Vec::with_capacity(16);
+    let mut name = Span::new();
+    let mut saw_end = false;
+    let mut parsing_key = true;
+    let mut content_length = 0;
+    let mut len = 0; 
+
+    while let Some(c) = buffer.get(pos) {
+        if parsing_key {
+            match *c {
+                b':' => {
+                    name = Span(start, pos);
+                    while let Some(&b' ') | Some(&b'\t') = buffer.get(pos + 1) {
+                        pos += 1;
+                    }
+                    parsing_key = false;
+                    start = pos + 1;
+                }
+                b'\r' | b'\n' | b' ' | b'\t' => return Err(Error::ParseHeaderName),
+                _ => {}
+            }
+        } else if *c == b'\n' || (*c == b'\r' && buffer.get(pos + 1) == Some(&b'\n')) {
+            if name.is_empty() {
+                return Err(Error::ParseError);
+            }
+
+            let value = Span(start, pos);
+            headers.push((name, value));
+            if name.from_buf(&buffer).to_ascii_lowercase() == "content-length" {
+                content_length = value.from_buf(&buffer).parse().unwrap_or(0);
+            }
+
+            name = Span::new();
+            parsing_key = true;
+
+            pos += if *c == b'\n' { 1 } else { 2 };
+
+            if let Some(next) = buffer.get(pos) {
+                match *next {
+                    b'\n' => {
+                        pos += 1;
+                        saw_end = true;
+                        break;
+                    }
+                    b'\r' => {
+                        if buffer.get(pos + 1) != Some(&b'\n') {
+                            return Ok(Status::Partial(buffer));
+                        }
+                        pos += 2;
+                        saw_end = true;
+                        break;
+                    }
+                    _ => {}
+                }
+            }
+
+            start = pos;
+            continue;
+        }
+        len += 1;
+        if len > MAX_HEADER_SIZE {
+            return Err(Error::ParseHeaderValue);
+        }
+        pos += 1;
+    }
+
+    if !saw_end {
+        return Ok(Status::Partial(buffer));
+    }
+
     let method = Span(0, method_len);
-    let path = Span(method_len + 1, method_len + 1, path_len);
+    let path = Span(method_len + 1, method_len + 1 + path_len);
+    let body = if content_length > 0 {
+        Span(pos, pos + buffer.len())
+    } else {
+        Span::new()
+    };
+
+    Ok(Status::Complete(Request::new(
+        method, path, headers, body, buffer,
+    )))
 }
