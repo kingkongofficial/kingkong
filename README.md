@@ -14,6 +14,7 @@ King Kong Web Framework
 ## Tutorials:
 - intrested in kingkong??
 - check out the learn kingkong [guide](https://github.com/kingkongofficial/kingkong/blob/main/docs/learnkingkong.md)
+- check out the kingkong examples [repo]()
 
 ## Installation:
 ```toml
