@@ -3,6 +3,11 @@ King Kong Web Framework
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-c-plus-plus.svg)](https://forthebadge.com)
 
+<p align="center">
+  <img src="" width="200" height="200">
+</p>
+
+
 ## About:
 - kingkong is a web framework built using cpp. which can be used for building backends :)
 
