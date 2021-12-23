@@ -25,7 +25,7 @@ kingkong = { git = "https://github.com/kingkongofficial/kingkong" }
 ```rust
 use kingkong::prelude::*;
 
-kingkong::routes! {
+routes! {
     GET "/" => |_| "Hello World.";
 }
 
