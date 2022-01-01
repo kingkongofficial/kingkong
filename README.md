@@ -35,7 +35,7 @@ fn main() {
 }
 ```
 
-- for more tutorials check the [docs]()
+- for more tutorials check the [docs](https://github.com/kingkongofficial/kingkong)
 
 ## Contribution:
 - kingkong is an open source project you can contribute to it :)
