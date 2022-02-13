@@ -9,7 +9,7 @@ King Kong Web Framework
 
 
 ## About:
-- kingkong is a web framework built using cpp. which can be used for building backends :)
+- kingkong is a web framework built using rust. which can be used for building backends :)
 
 ## Tutorials:
 - intrested in kingkong??
